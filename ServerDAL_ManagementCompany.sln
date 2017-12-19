@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerBLL_ManagementCompany
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfService_ManagementCompany", "WcfService_ManagementCompany\WcfService_ManagementCompany.csproj", "{47D44717-E29A-49E3-9079-C8C435CA5498}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTest", "..\ConsoleTest\ConsoleTest\ConsoleTest.csproj", "{837472D2-D89A-44FC-AD89-A63078912AF1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{47D44717-E29A-49E3-9079-C8C435CA5498}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47D44717-E29A-49E3-9079-C8C435CA5498}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47D44717-E29A-49E3-9079-C8C435CA5498}.Release|Any CPU.Build.0 = Release|Any CPU
+		{837472D2-D89A-44FC-AD89-A63078912AF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{837472D2-D89A-44FC-AD89-A63078912AF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{837472D2-D89A-44FC-AD89-A63078912AF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{837472D2-D89A-44FC-AD89-A63078912AF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
