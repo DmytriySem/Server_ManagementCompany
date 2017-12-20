@@ -31,5 +31,10 @@ namespace ServerBLL_ManagementCompany.Realizations
         {
             return userValidation?.IsLoginValid(login);
         }
+
+        public void recoverPassword(string email)
+        {
+            userValidation.recoverPassword(email);
+        }
     }
 }

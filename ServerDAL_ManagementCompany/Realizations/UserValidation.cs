@@ -1,4 +1,5 @@
-﻿using ServerDAL_ManagementCompany.Interfaces;
+﻿using EASendMail;
+using ServerDAL_ManagementCompany.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,6 +57,45 @@ namespace ServerDAL_ManagementCompany.Realizations
             int count = ctx.Users.Where(f => f.Login == login).Count();
 
             return count != 0 ? true : false;
+        }
+
+        public void recoverPassword(string email)
+        {
+            string senderEmail =  ctx.CompanyDatas.Select(x => x.Email).First();
+            string senderPass = "helloworld18";
+
+            string recieverEmail = email;
+
+            SmtpServer server = new SmtpServer("smtp.gmail.com", 465);
+            server.ConnectType = SmtpConnectType.ConnectSSLAuto;
+            server.User = senderEmail;
+            server.Password = senderPass;
+
+            string recoverFuturePass = HashMethods.HashMethods.GetRandomString_Challenge(10);
+
+            var query = ctx.Users.Where(f => f.Email == email).FirstOrDefault();
+            string login = query.Login;
+            query.Password = Encoding.ASCII.GetBytes(HashMethods.HashMethods.GetHashString(recoverFuturePass));
+            ctx.SaveChanges();
+
+            SmtpClient client = new SmtpClient();
+
+            SmtpMail message = new SmtpMail("TryIt")
+            {
+                From = senderEmail,
+                To = recieverEmail,
+                Subject = "Recovery email",
+                TextBody = "Login: " + login + "\nTemporary password: " + recoverFuturePass                
+            };
+
+            try
+            {
+                client.SendMail(server, message);
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 }

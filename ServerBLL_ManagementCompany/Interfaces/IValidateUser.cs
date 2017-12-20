@@ -12,5 +12,6 @@ namespace ServerBLL_ManagementCompany.Interfaces
         string GetRandomStringByLoginForCheckPass(string login);
         int? GetUserIdIfPasswordValid(string hashPassChall);
         bool? IsEmailValid(string email);
+        void recoverPassword(string email);
     }
 }

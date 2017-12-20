@@ -27,28 +27,31 @@ namespace ServerDAL_ManagementCompany
             //Database.SetInitializer(new DropCreateDatabaseAlways<CompanyContext>());
             //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<CompanyContext>());
         }
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-        //    //modelBuilder.Entity<Appartment>()
-        //    //    .HasRequired(c => c.User)
-        //    //    .WithRequiredPrincipal(c => c.Appartments);
-        //    //modelBuilder.Entity<UserData>()
-        //    //    .HasRequired(c => c.User)
-        //    //    .WithRequiredPrincipal(c => c.UserData);
-        //    //modelBuilder.Entity<OwnershipAndRent>()
-        //    //    .HasRequired(c => c.User)
-        //    //    .WithRequiredPrincipal(c => c.OwnershipAndRent);
-        //}
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Company>()
+                .HasOptional(s => s.CompanyData) // Mark Address property optional in Student entity
+                .WithRequired(ad => ad.Company);
+            //    //modelBuilder.Entity<Appartment>()
+            //    //    .HasRequired(c => c.User)
+            //    //    .WithRequiredPrincipal(c => c.Appartments);
+            //    //modelBuilder.Entity<UserData>()
+            //    //    .HasRequired(c => c.User)
+            //    //    .WithRequiredPrincipal(c => c.UserData);
+            //    //modelBuilder.Entity<OwnershipAndRent>()
+            //    //    .HasRequired(c => c.User)
+            //    //    .WithRequiredPrincipal(c => c.OwnershipAndRent);
+        }
 
-        // Add a DbSet for each entity type that you want to include in your model. For more information 
-        // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
+            // Add a DbSet for each entity type that you want to include in your model. For more information 
+            // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 
 
-        //-----------------------ManagementCompany-----------------
+            //-----------------------ManagementCompany-----------------
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<House> Houses { get; set; }
         public virtual DbSet<Cellar> Cellars { get; set; }
-
+        public virtual DbSet<CompanyData> CompanyDatas { get; set; }
 
         //-----------------------UserAccount-----------------
         public virtual DbSet<User> Users { get; set; }

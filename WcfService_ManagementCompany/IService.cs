@@ -27,6 +27,9 @@ namespace WcfService_ManagementCompany
 
         [OperationContract]
         void CreateHouse();
+
+        [OperationContract]
+        void RecoverPassword(string email);
     }
 
 

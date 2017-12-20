@@ -40,5 +40,10 @@ namespace WcfService_ManagementCompany
         {
             createHouse.BuildHouse();
         }
+
+        public void RecoverPassword(string email)
+        {
+            userValidate.recoverPassword(email);
+        }
     }
 }
