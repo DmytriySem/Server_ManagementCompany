@@ -9,8 +9,8 @@ namespace ServerDAL_ManagementCompany.Entities.ManagementCompany
     public class Company
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-
+        
+        public CompanyData CompanyData { get; set; }
 
         public ICollection<House.House> Houses{ get; set; }
         public ICollection<Territory.Territory> Territories { get; set; }

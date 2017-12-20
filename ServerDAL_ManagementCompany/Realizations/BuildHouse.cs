@@ -1,4 +1,5 @@
 ﻿using ServerDAL_ManagementCompany.Entities;
+using ServerDAL_ManagementCompany.Entities.ManagementCompany;
 using ServerDAL_ManagementCompany.Entities.ManagementCompany.House;
 using ServerDAL_ManagementCompany.Entities.Room;
 using ServerDAL_ManagementCompany.Entities.Territory;
@@ -14,6 +15,11 @@ namespace ServerDAL_ManagementCompany.Realizations
     public class BuildHouse : IBuildHouse
     {
         private CompanyContext ctx = new CompanyContext();
+
+        private Company company = null;
+        private CompanyData companyData = null;
+        private House house = null;
+
         private Hallway hallway = null;
         private Appartment appartment = null;
         private Floor floor = null;
@@ -83,7 +89,17 @@ namespace ServerDAL_ManagementCompany.Realizations
                 ctx.Entrances.Add(entrance);
             }
 
-            
+            house = new House();
+            house.Entrances.Add(entrance);
+            ctx.Houses.Add(house);
+
+            company = new Company();
+            company.Houses.Add(house);
+            ctx.Companies.Add(company);
+
+            companyData = new CompanyData() { Email = "osbbcompany@gmail.com", Name = "CITY" };
+            company.CompanyData = companyData;
+            ctx.Companies.Add(company);
 
             ctx.SaveChanges();
         }
