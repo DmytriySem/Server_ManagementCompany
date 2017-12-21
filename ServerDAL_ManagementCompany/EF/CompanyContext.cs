@@ -23,7 +23,7 @@ namespace ServerDAL_ManagementCompany
         // connection string in the application configuration file.
         public CompanyContext()
             : base("name=CompanyContext")
-        {
+        {            
             //Database.SetInitializer(new DropCreateDatabaseAlways<CompanyContext>());
             //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<CompanyContext>());
         }

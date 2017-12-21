@@ -10,7 +10,6 @@ namespace ServerDAL_ManagementCompany.Entities.Territory
     {
         public int Id { get; set; }
         public double Area { get; set; }
-        public string Name { get; set; }
         public StatusOfCleaning StatusOfCleaning{ get; set; }
     }
 }

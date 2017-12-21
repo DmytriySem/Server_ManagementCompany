@@ -8,10 +8,10 @@ namespace ServerDAL_ManagementCompany.Entities
 {
     public enum UserStatus
     {
-        admin,
-        user,
-        director,
-        accountant,
-        janitor
+        ADMIN,
+        USER,
+        DIRECTOR,
+        ACCOUNTANT,
+        JANITOR
     }
 }

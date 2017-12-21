@@ -19,8 +19,6 @@ namespace ServerDAL_ManagementCompany.Entities.Room
         public StatusOfCleaning StatusOfCleaning { get; set; }
         public Entrance()
         {
-            Name = "ENTRANCE";
-
             Cameras = new List<Camera>();
             Lifts = new List<Lift>();
             Lights = new List<Light>();
