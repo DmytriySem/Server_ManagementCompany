@@ -14,8 +14,28 @@ namespace WcfService_ManagementCompany
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class Service : IService
     {
-        private IValidateUser userValidate = new ValidateUser();
-        private ICreateHouse createHouse = new CreateHouse();
+        private const string connStrServer = "DESKTOP-P136AIJ";
+        private const string connStrClient = @"DMITRIY-ПК\SQLEXPRESS";
+        private string connStr = String.Empty;
+        private IValidateUser userValidate = null;
+        private ICreateHouse createHouse = null;
+
+        public Service()
+        {
+            switch (Environment.MachineName)
+            {
+                case (connStrServer):
+                    connStr = "CompanyContext";
+                    break;
+                case (connStrClient):
+                    connStr = "CompanyContextClient";
+                    break;
+            }
+
+            userValidate = new ValidateUser(connStr);
+            createHouse = new CreateHouse(connStr);
+        }
+
         public string GetRandomStringFromServer(string login)
         {
             return userValidate?.GetRandomStringByLoginForCheckPass(login);

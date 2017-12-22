@@ -11,7 +11,11 @@ namespace ServerBLL_ManagementCompany.Realizations
 {
     public class CreateHouse : ICreateHouse
     {
-        IBuildHouse create = new BuildHouse();
+        IBuildHouse create = null;
+        public CreateHouse(string connStr)
+        {
+            create = new BuildHouse(connStr);
+        }
         public void BuildHouse()
         {
             create.BuildHouse();

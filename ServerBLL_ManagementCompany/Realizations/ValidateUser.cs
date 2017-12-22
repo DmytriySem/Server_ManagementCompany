@@ -11,7 +11,13 @@ namespace ServerBLL_ManagementCompany.Realizations
 {
     public class ValidateUser : IValidateUser
     {
-        IUserValidation userValidation = new UserValidation();
+        IUserValidation userValidation = null;
+
+        public ValidateUser(string connStr)
+        {
+            userValidation = new UserValidation(connStr);
+        }
+
         public string GetRandomStringByLoginForCheckPass(string login)
         {
             return userValidation?.GetRandomStringByLoginForCheckPass(login);
