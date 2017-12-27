@@ -10,10 +10,15 @@ namespace ServerDAL_ManagementCompany.Realizations
 {
     public class UserValidation : IUserValidation
     {
-        private CompanyContext ctx = new CompanyContext();
+        private CompanyContext ctx = null;
         private static string challenge = String.Empty;
         private static string log = String.Empty;
         private int challengeLength = 10;
+
+        public UserValidation(string connStr)
+        {
+            ctx = new CompanyContext(connStr);
+        }
 
         public string GetRandomStringByLoginForCheckPass(string login)
         {

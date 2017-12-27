@@ -1,5 +1,6 @@
 ﻿using ServerBLL_ManagementCompany.Interfaces;
 using ServerBLL_ManagementCompany.Realizations;
+using ServerBLL_ManagementCompany.ServiceBLL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,22 @@ namespace WcfService_ManagementCompany
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class Service : IService
     {
-        private IValidateUser userValidate = new ValidateUser();
-        private ICreateHouse createHouse = new CreateHouse();
+        private const string connStrServer = "DESKTOP-P136AIJ";
+        private const string connStrClient = @"DMITRIY-ПК\SQLEXPRESS";
+        private string connStr = String.Empty;
+        private IValidateUser userValidate = null;
+        private ICreateHouse createHouse = null;
+        private ISaveUserCredentials saveUser = null;
+
+        public Service()
+        {
+            connStr = GetConnStrForThisMashine.GetConnStr();
+
+            userValidate = new ValidateUser(connStr);
+            createHouse = new CreateHouse(connStr);
+            saveUser = new SaveUserCredentials(connStr);
+        }
+
         public string GetRandomStringFromServer(string login)
         {
             return userValidate?.GetRandomStringByLoginForCheckPass(login);

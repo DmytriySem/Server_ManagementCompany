@@ -14,7 +14,12 @@ namespace ServerDAL_ManagementCompany.Realizations
 {
     public class BuildHouse : IBuildHouse
     {
-        private CompanyContext ctx = new CompanyContext();
+        private CompanyContext ctx = null;
+
+        public BuildHouse(string connStr)
+        {
+            ctx = new CompanyContext(connStr);
+        }
 
         private Company company = null;
         private CompanyData companyData = null;

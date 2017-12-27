@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BAA91AF3-B89D-4E14-BB33-9B5BB583AD21}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{2044FFAB-70BE-4928-9E26-134ED61AF923}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ServerBLL_ManagementCompany</RootNamespace>
-    <AssemblyName>ServerBLL_ManagementCompany</AssemblyName>
+    <RootNamespace>TcpServer_ManagementCompany</RootNamespace>
+    <AssemblyName>TcpServer_ManagementCompany</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -30,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DTOSerializerHelper">
+      <HintPath>..\..\DTOs_library\DTOSerializerHelper\obj\Debug\DTOSerializerHelper.dll</HintPath>
+    </Reference>
     <Reference Include="DTOs_library">
       <HintPath>..\DTOs_library.dll</HintPath>
     </Reference>
@@ -52,24 +58,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\ICreateHouse.cs" />
-    <Compile Include="Interfaces\ISaveUserCredentials.cs" />
-    <Compile Include="Interfaces\IValidateUser.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Realizations\CreateHouse.cs" />
-    <Compile Include="Realizations\SaveUserCredentials.cs" />
-    <Compile Include="Realizations\ValidateUser.cs" />
-    <Compile Include="ServiceBLL\GetConnStrForThisMashine.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ServerDAL_ManagementCompany\ServerDAL_ManagementCompany.csproj">
-      <Project>{59983B2D-AF6B-439C-8B7F-90D1A1CAB7F7}</Project>
-      <Name>ServerDAL_ManagementCompany</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ServerBLL_ManagementCompany\ServerBLL_ManagementCompany.csproj">
+      <Project>{BAA91AF3-B89D-4E14-BB33-9B5BB583AD21}</Project>
+      <Name>ServerBLL_ManagementCompany</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
