@@ -1,5 +1,6 @@
 ﻿using ServerBLL_ManagementCompany.Interfaces;
 using ServerBLL_ManagementCompany.Realizations;
+using ServerBLL_ManagementCompany.ServiceBLL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,21 +20,15 @@ namespace WcfService_ManagementCompany
         private string connStr = String.Empty;
         private IValidateUser userValidate = null;
         private ICreateHouse createHouse = null;
+        private ISaveUserCredentials saveUser = null;
 
         public Service()
         {
-            switch (Environment.MachineName)
-            {
-                case (connStrServer):
-                    connStr = "CompanyContext";
-                    break;
-                case (connStrClient):
-                    connStr = "CompanyContextClient";
-                    break;
-            }
+            connStr = GetConnStrForThisMashine.GetConnStr();
 
             userValidate = new ValidateUser(connStr);
             createHouse = new CreateHouse(connStr);
+            saveUser = new SaveUserCredentials(connStr);
         }
 
         public string GetRandomStringFromServer(string login)

@@ -24,14 +24,7 @@ namespace ServerDAL_ManagementCompany
         public CompanyContext(string connStringName)
             : base(connStringName)
             // : base("name=CompanyContext")
-        {
-            string mashineName = Environment.MachineName;
-            if (mashineName == "DESKTOP-P136AIJ")
-            {
-                
-            }
-            else if (mashineName == @"DMITRIY-ой\SQLEXPRESS")
-            { }     
+        {   
             //Database.SetInitializer(new DropCreateDatabaseAlways<CompanyContext>());
             //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<CompanyContext>());
         }
