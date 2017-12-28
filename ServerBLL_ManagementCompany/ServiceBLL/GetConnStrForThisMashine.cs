@@ -9,7 +9,7 @@ namespace ServerBLL_ManagementCompany.ServiceBLL
     public static class GetConnStrForThisMashine
     {
         private const string connStrServer = "DESKTOP-P136AIJ";
-        private const string connStrClient = "DMITRIY-ПК";
+        private const string connStrClient = @"DMITRIY-ПК";
         private static string connStr = String.Empty;
         public static string GetConnStr()
         {
