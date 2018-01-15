@@ -1,5 +1,4 @@
-﻿using DTOs_library;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -32,14 +31,14 @@ namespace WcfService_ManagementCompany
         [OperationContract]
         void RecoverPassword(string email);
         [OperationContract]
-        UserDTO GetUserByNumberOfAppartment(int numOfAppartment);
+        DTOUser GetUserByNumberOfAppartment(int numOfAppartment);
 
     }
 
 
     // Use a data contract as illustrated in the sample below to add composite types to service operations.
     [DataContract]
-    public class UserDTO
+    public class DTOUser
     {
         [DataMember]
         public string Login { get; set; }

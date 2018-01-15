@@ -20,6 +20,7 @@ namespace ServerBLL_ManagementCompany.Realizations
 
         public UserDTO GetUserByNumberOfAppartment(int numOfAppartment)
         {
+            
             return methodsAdmin.GetUserByNumberOfAppartment(numOfAppartment);
         }
     }

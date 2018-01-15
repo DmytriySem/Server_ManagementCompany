@@ -73,9 +73,20 @@ namespace WcfService_ManagementCompany
             userValidate.recoverPassword(email);
         }
 
-        public UserDTO GetUserByNumberOfAppartment(int numOfAppartment)
+        public DTOUser GetUserByNumberOfAppartment(int numOfAppartment)
         {
-            return adminMethods.GetUserByNumberOfAppartment(numOfAppartment);
+
+            UserDTO userDTO =  adminMethods.GetUserByNumberOfAppartment(numOfAppartment);
+            DTOUser dtoUser = new DTOUser()
+            {
+                FirstName = userDTO.FirstName,
+                LastName = userDTO.LastName,
+                BirthDate = userDTO.BirthDate,
+                Email = userDTO.Email,
+                Phone = userDTO.Phone
+            };
+
+            return dtoUser;
         }
     }
 }
