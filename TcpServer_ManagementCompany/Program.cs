@@ -47,10 +47,10 @@ namespace TcpServer_ManagementCompany
                             break;
                     }
 
-                    UserDTO userDTO = (UserDTO)DTOSerializerHelper.DTOSerializerHelper.DesirealizeDTO(myBuffer);
+                   //// UserDTO userDTO = (UserDTO)DTOSerializerHelper.DTOSerializerHelper.DesirealizeDTO(myBuffer);
 
                     //have data -> send to DB                    
-                    saveCredentials.SaveUserCredentials(userDTO);
+                ////    saveCredentials.SaveUserCredentials(userDTO);
                 }
             }
             //catch (Exception ex)
