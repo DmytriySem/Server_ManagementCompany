@@ -45,8 +45,8 @@ namespace ServerDAL_ManagementCompany.Realizations
 
         public UserDTO GetUserByNumberOfAppartment(int numOfAppartment)
         {
-            int userId = ctx.Appartments.Where(x=>x.AppartmentNumber == numOfAppartment).Select(x => x.Id).First();
-            User user = ctx.Users.Where(x => x.Id == userId).First();
+            User user = ctx.Appartments.Where(x => x.AppartmentNumber == numOfAppartment).Select(x => x.User).First();
+            //User user = ctx.Users.Where(x => x.Id == userId).First();
             UserDTO userDTO = new UserDTO()
             {
                 FirstName = user.FirstName,

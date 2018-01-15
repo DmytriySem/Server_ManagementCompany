@@ -39,23 +39,23 @@ namespace WcfService_ManagementCompany
 
     // Use a data contract as illustrated in the sample below to add composite types to service operations.
     [DataContract]
-    public class CompositeType
+    public class UserDTO
     {
-        bool boolValue = true;
-        string stringValue = "Hello ";
-
         [DataMember]
-        public bool BoolValue
-        {
-            get { return boolValue; }
-            set { boolValue = value; }
-        }
-
+        public string Login { get; set; }
         [DataMember]
-        public string StringValue
-        {
-            get { return stringValue; }
-            set { stringValue = value; }
-        }
+        public byte[] Password { get; set; }
+        [DataMember]
+        public string FirstName { get; set; }
+        [DataMember]
+        public string LastName { get; set; }
+        [DataMember]
+        public string Email { get; set; }
+        [DataMember]
+        public string Phone { get; set; }
+        [DataMember]
+        public DateTime BirthDate { get; set; }
+        [DataMember]
+        public int UserStatus { get; set; }
     }
 }

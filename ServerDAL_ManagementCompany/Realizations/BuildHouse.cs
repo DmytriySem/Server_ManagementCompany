@@ -437,6 +437,8 @@ namespace ServerDAL_ManagementCompany.Realizations
             ctx.Users.Add(user);
             company.Users.Add(user);
 
+            
+
             ctx.SaveChanges();
         }
     }
