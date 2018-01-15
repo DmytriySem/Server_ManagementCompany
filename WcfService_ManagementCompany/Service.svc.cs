@@ -8,6 +8,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using DTOs_library;
 
 namespace WcfService_ManagementCompany
 {
@@ -21,6 +22,7 @@ namespace WcfService_ManagementCompany
         private IValidateUser userValidate = null;
         private ICreateHouse createHouse = null;
         private ISaveUserCredentials saveUser = null;
+        private IMethodsOfAdmin adminMethods = null;
 
         public Service()
         {
@@ -33,6 +35,7 @@ namespace WcfService_ManagementCompany
                     throw new Exception("out of memory");
                 createHouse = new CreateHouse(connStr);
                 saveUser = new SaveUserCredentials(connStr);
+                adminMethods = new MethodsOfAdmin(connStr);
             }
             catch(OutOfMemoryException ex)
             {
@@ -68,6 +71,11 @@ namespace WcfService_ManagementCompany
         public void RecoverPassword(string email)
         {
             userValidate.recoverPassword(email);
+        }
+
+        public UserDTO GetUserByNumberOfAppartment(int numOfAppartment)
+        {
+            return adminMethods.GetUserByNumberOfAppartment(numOfAppartment);
         }
     }
 }

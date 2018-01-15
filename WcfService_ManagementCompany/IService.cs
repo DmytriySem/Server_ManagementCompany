@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DTOs_library;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -30,6 +31,8 @@ namespace WcfService_ManagementCompany
 
         [OperationContract]
         void RecoverPassword(string email);
+        [OperationContract]
+        UserDTO GetUserByNumberOfAppartment(int numOfAppartment);
 
     }
 
