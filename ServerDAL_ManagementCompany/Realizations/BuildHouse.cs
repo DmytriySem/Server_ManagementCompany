@@ -388,6 +388,55 @@ namespace ServerDAL_ManagementCompany.Realizations
             ctx.Users.Add(user);
             company.Users.Add(user);
 
+
+            ///---------------------------------------------------------------------------------------------
+            ///Users///
+            ///---------------------------------------------------------------------------------------------
+            passByte = Encoding.ASCII.GetBytes(HashMethods.HashMethods.GetHashString("user"));
+            user = new User()
+            {
+                Login = "user1",
+                Password = passByte,
+                FirstName = "Kolja",
+                LastName = "Oleg",
+                Phone = "067-254-56-89",
+                BirthDate = DateTime.Now,
+                //Email = "dmitriysemysiuk@gmail.com",
+                UserStatus = UserStatus.USER
+            };
+            ctx.Users.Add(user);
+            company.Users.Add(user);
+
+            passByte = Encoding.ASCII.GetBytes(HashMethods.HashMethods.GetHashString("user"));
+            user = new User()
+            {
+                Login = "user2",
+                Password = passByte,
+                FirstName = "Lena",
+                LastName = "Valja",
+                Phone = "067-254-56-89",
+                BirthDate = DateTime.Now,
+                //Email = "dmitriysemysiuk@gmail.com",
+                UserStatus = UserStatus.USER
+            };
+            ctx.Users.Add(user);
+            company.Users.Add(user);
+
+            passByte = Encoding.ASCII.GetBytes(HashMethods.HashMethods.GetHashString("asdf"));
+            user = new User()
+            {
+                Login = "user3",
+                Password = passByte,
+                FirstName = "Nina",
+                LastName = "Katja",
+                Phone = "067-254-56-89",
+                BirthDate = DateTime.Now,
+                //Email = "dmitriysemysiuk@gmail.com",
+                UserStatus = UserStatus.USER
+            };
+            ctx.Users.Add(user);
+            company.Users.Add(user);
+
             ctx.SaveChanges();
         }
     }
