@@ -1,4 +1,5 @@
 ﻿using ServerDAL_ManagementCompany.Entities;
+using ServerDAL_ManagementCompany.Entities.Equipment;
 using ServerDAL_ManagementCompany.Entities.ManagementCompany;
 using ServerDAL_ManagementCompany.Entities.ManagementCompany.House;
 using ServerDAL_ManagementCompany.Entities.Room;
@@ -46,8 +47,12 @@ namespace ServerDAL_ManagementCompany.Realizations
         private const int numberOfGarbagePlaces = 6;
         private RestTerritory restTerritory = null;
         private ParkingPlace parkingPlace = null;
+        private ParkingTerritory parkingTerritory = null;
         private const int numberOfParkingPlaces = 24;
         private PlayGround playGround = null;
+        private AdjoiningTerritory adjoiningTerritory = null;
+
+        //private Camera camera = null;
 
         void IBuildHouse.BuildHouse()
         {
@@ -55,20 +60,26 @@ namespace ServerDAL_ManagementCompany.Realizations
 
             for (int i = 0, k = 1; i < numberOfEntrances; i++)
             {
+                Camera camera = new Camera() { IpAdress = "0.0.0.0", Login = "empty", Password = "none", Resolution = 2.0, EquipmentStatus = EquipmentStatus.NOTWORK };
+                Lift lift = new Lift() { CarryingCapacity = 200, EquipmentStatus = EquipmentStatus.WORK };
+                Intercom intercom = new Intercom() { EquipmentStatus = EquipmentStatus.WORK };
+                Light light = new Light() { Power = 100, EquipmentStatus = EquipmentStatus.WORK };
+
                 entrance = new Entrance()
                 {
                     Area = 50.00,
                     EntranceNumber = i + 1,
                     StatusOfCleaning = StatusOfCleaning.DURT,
-                    Cameras = null,
-                    Lifts = null,
-                    Intercom = null,
-                    Lights = null
+                    Cameras = new List<Camera>() { camera },
+                    Lifts = new List<Lift>() { lift },
+                    Intercom = intercom,
+                    Lights = new List<Light>() { light }
                 };
 
                 for (int j = 0; j < numberOfFloorsInEntrance; j++)
                 {
                     hallway = new Hallway() { Area = 10.45, StatusOfCleaning = StatusOfCleaning.DURT };
+                    hallway.Lights.Add(new Light() { Power = 40, EquipmentStatus = EquipmentStatus.WORK });
                     ctx.Hallways.Add(hallway);
 
                     appartment = new Appartment()
@@ -105,9 +116,32 @@ namespace ServerDAL_ManagementCompany.Realizations
                 house.Entrances.Add(entrance);
             }
 
+
+            ///---------------------------------------------------------------------------------------------
+            ///Cellar///
+            ///---------------------------------------------------------------------------------------------
             for (int i = 0, k = 1; i < numberOfCellars; i++)
             {
-                hallway = new Hallway() { Area = 18.60, StatusOfCleaning = StatusOfCleaning.DURT };
+                hallway = new Hallway()
+                {
+                    Area = 18.60,
+                    StatusOfCleaning = StatusOfCleaning.DURT,
+                    Lights = new List<Light>()
+                    {
+                        new Light() {Power = 50, EquipmentStatus = EquipmentStatus.WORK }
+                    },
+                    Cameras = new List<Camera>()
+                    {
+                        new Camera()
+                        {
+                            IpAdress = "0.0.0.0",
+                            Login = "empty",
+                            Password = "none",
+                            Resolution = 2.0,
+                            EquipmentStatus = EquipmentStatus.NOTWORK
+                        }
+                    }
+                };
                 ctx.Hallways.Add(hallway);
 
                 cellar = new Cellar() { CellarNumber = i + 1, Hallway = hallway };
@@ -124,24 +158,17 @@ namespace ServerDAL_ManagementCompany.Realizations
                     ctx.Basements.Add(basement);
                     cellar.Basements.Add(basement);
                 }
+
                 ctx.Cellars.Add(cellar);
-
                 house.Cellars.Add(cellar);
-            }            
-
-            territory = new Territory();
-
-            for (int i = 0; i < numberOfGarbagePlaces; i++)
-            {
-                garbagePlace = new GarbagePlace()
-                {
-                    Area = 5.00,
-                    GarbageNumber = i + 1,
-                    StatusOfCleaning = StatusOfCleaning.DURT
-                };
-                ctx.GarbagePlaces.Add(garbagePlace);
-                territory.GarbagePlaces.Add(garbagePlace);
             }
+
+
+
+            ///---------------------------------------------------------------------------------------------
+            ///Parking Territory///
+            ///---------------------------------------------------------------------------------------------
+            parkingTerritory = new ParkingTerritory() { Area = 360, StatusOfCleaning = StatusOfCleaning.DURT };
 
             for (int i = 0; i < numberOfParkingPlaces; i++)
             {
@@ -154,30 +181,122 @@ namespace ServerDAL_ManagementCompany.Realizations
                     User = null
                 };
                 ctx.ParkingPlaces.Add(parkingPlace);
-                territory.ParkingPlaces.Add(parkingPlace);
+                parkingTerritory.ParkingPlaces.Add(parkingPlace);
             }
 
+            for (int i = 0; i < numberOfGarbagePlaces; i++)
+            {
+                garbagePlace = new GarbagePlace()
+                {
+                    Area = 5.00,
+                    GarbageNumber = i + 1,
+                    StatusOfCleaning = StatusOfCleaning.DURT
+                };
+                ctx.GarbagePlaces.Add(garbagePlace);
+                parkingTerritory.GarbagePlaces.Add(garbagePlace);
+            }
+
+            for (int i = 0; i < 2; i++)
+            {
+                Camera camera = new Camera()
+                {
+                    IpAdress = "0.0.0.0",
+                    Login = "empty",
+                    Password = "none",
+                    Resolution = 2.0,
+                    EquipmentStatus = EquipmentStatus.NOTWORK
+                };
+                ctx.Cameras.Add(camera);
+                parkingTerritory.Cameras.Add(camera);
+            }
+
+            for (int i = 0; i < 2; i++)
+            {
+                Light light = new Light() { Power = 150, EquipmentStatus = EquipmentStatus.WORK };
+                ctx.Lights.Add(light);
+                parkingTerritory.Lights.Add(light);
+            }
+
+            ///---------------------------------------------------------------------------------------------
+            ///Play Ground///
+            ///---------------------------------------------------------------------------------------------
             playGround = new PlayGround()
             {
-                Area = 30.00,
-                Cameras = null,
-                Lights = null,
-                StatusOfCleaning = StatusOfCleaning.DURT
+                Area = 200,
+                StatusOfCleaning = StatusOfCleaning.DURT,
+                Cameras = new List<Camera>
+                {
+                    new Camera()
+                    {
+                        IpAdress = "0.0.0.0",
+                        Login = "empty",
+                        Password = "none",
+                        Resolution = 2.0,
+                        EquipmentStatus = EquipmentStatus.NOTWORK
+                    }
+                },
+                Lights = new List<Light>
+                {
+                    new Light() { Power = 100, EquipmentStatus = EquipmentStatus.NOTWORK }
+                }
             };
             ctx.PlayGrounds.Add(playGround);
-            territory.PlayGround = playGround;
 
+            ///---------------------------------------------------------------------------------------------
+            ///Rest Territory///
+            ///---------------------------------------------------------------------------------------------
             restTerritory = new RestTerritory()
             {
-                Area = 200.00,
-                Cameras = null,
-                Lights = null,
-                StatusOfCleaning = StatusOfCleaning.DURT
+                Area = 350,
+                StatusOfCleaning = StatusOfCleaning.DURT,
+                Cameras = new List<Camera>()
+                {
+                    new Camera()
+                    {
+                        IpAdress = "0.0.0.0",
+                        Login = "empty",
+                        Password = "none",
+                        Resolution = 2.0,
+                        EquipmentStatus = EquipmentStatus.NOTWORK
+                    }
+                },
+                Lights = new List<Light>()
+                {
+                    new Light() { Power = 100, EquipmentStatus = EquipmentStatus.NOTWORK }
+                }
             };
             ctx.RestTerritories.Add(restTerritory);
-            territory.RestTerritory = restTerritory;
+
+            ///---------------------------------------------------------------------------------------------
+            ///Adjoining Territory///
+            ///---------------------------------------------------------------------------------------------
+            adjoiningTerritory = new AdjoiningTerritory()
+            {
+                Area = 800,
+                StatusOfCleaning = StatusOfCleaning.DURT,
+                PlayGround = playGround,
+                RestTerritory = restTerritory
+            };
+            ctx.AdjoiningTerritory.Add(adjoiningTerritory);
 
 
+            ///---------------------------------------------------------------------------------------------
+            ///Territory///
+            ///---------------------------------------------------------------------------------------------
+            territory = new Territory()
+            {
+                Area = 1350,
+                ParkingTerritory = parkingTerritory,
+                AdjoiningTerritory = adjoiningTerritory,
+                StatusOfCleaning = StatusOfCleaning.DURT
+            };
+            ctx.Territories.Add(territory);
+
+
+
+            ///---------------------------------------------------------------------------------------------
+            ///Company Data///
+            ///---------------------------------------------------------------------------------------------
             companyData = new CompanyData()
             {
                 Name = "Managemrnt Company Ltd",
@@ -185,6 +304,10 @@ namespace ServerDAL_ManagementCompany.Realizations
                 Phones = new List<string>() { "063-12-12-665", "093-56-89-895" }
             };
 
+
+            ///---------------------------------------------------------------------------------------------
+            ///Company///
+            ///---------------------------------------------------------------------------------------------
             company = new Company() { CompanyData = companyData };
             company.Houses.Add(house);
             company.Territories.Add(territory);
@@ -195,6 +318,9 @@ namespace ServerDAL_ManagementCompany.Realizations
             {
                 Login = "admin",
                 Password = passByte,
+                FirstName = "Mykola",
+                LastName = "Petro",
+                Phone = "066-564-51-23",
                 BirthDate = DateTime.Now,
                 Email = "dmitriysemysiuk@gmail.com",
                 UserStatus = UserStatus.ADMIN
@@ -205,11 +331,14 @@ namespace ServerDAL_ManagementCompany.Realizations
             passByte = Encoding.ASCII.GetBytes(HashMethods.HashMethods.GetHashString("qwer"));
             user = new User()
             {
-                Login = "user1",
+                Login = "director",
                 Password = passByte,
+                FirstName = "Vasyl",
+                LastName = "Ivan",
+                Phone = "050-452-88-56",
                 BirthDate = DateTime.Now,
                 Email = "dmitriysemysiuk17@gmail.com",
-                UserStatus = UserStatus.USER
+                UserStatus = UserStatus.DIRECTOR
             };
             ctx.Users.Add(user);
             company.Users.Add(user);
@@ -217,11 +346,14 @@ namespace ServerDAL_ManagementCompany.Realizations
             passByte = Encoding.ASCII.GetBytes(HashMethods.HashMethods.GetHashString("qwer"));
             user = new User()
             {
-                Login = "user2",
+                Login = "accountant",
                 Password = passByte,
+                FirstName = "Lena",
+                LastName = "Anya",
+                Phone = "050-636-31-23",
                 BirthDate = DateTime.Now,
                 //Email = "dmitriysemysiuk@gmail.com",
-                UserStatus = UserStatus.USER
+                UserStatus = UserStatus.ACCOUNTANT
             };
             ctx.Users.Add(user);
             company.Users.Add(user);
@@ -229,20 +361,26 @@ namespace ServerDAL_ManagementCompany.Realizations
             passByte = Encoding.ASCII.GetBytes(HashMethods.HashMethods.GetHashString("asdf"));
             user = new User()
             {
-                Login = "user3",
+                Login = "janitor1",
                 Password = passByte,
+                FirstName = "Ivan",
+                LastName = "Petro",
+                Phone = "098-459-87-41",
                 BirthDate = DateTime.Now,
                 //Email = "dmitriysemysiuk@gmail.com",
-                UserStatus = UserStatus.USER
+                UserStatus = UserStatus.JANITOR
             };
             ctx.Users.Add(user);
             company.Users.Add(user);
 
-            passByte = Encoding.ASCII.GetBytes(HashMethods.HashMethods.GetHashString("qwer"));
+            passByte = Encoding.ASCII.GetBytes(HashMethods.HashMethods.GetHashString("asdf"));
             user = new User()
             {
-                Login = "jan",
+                Login = "janitor2",
                 Password = passByte,
+                FirstName = "Valja",
+                LastName = "Nika",
+                Phone = "067-254-56-89",
                 BirthDate = DateTime.Now,
                 //Email = "dmitriysemysiuk@gmail.com",
                 UserStatus = UserStatus.JANITOR

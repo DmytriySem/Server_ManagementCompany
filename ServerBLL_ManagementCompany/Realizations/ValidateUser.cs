@@ -20,22 +20,22 @@ namespace ServerBLL_ManagementCompany.Realizations
 
         public string GetRandomStringByLoginForCheckPass(string login)
         {
-            return userValidation?.GetRandomStringByLoginForCheckPass(login);
+            return userValidation.GetRandomStringByLoginForCheckPass(login);
         }
 
-        public int? GetUserIdIfPasswordValid(string hashPassChall)
+        public int GetUserIdIfPasswordValid(string hashPassChall)
         {
-            return userValidation?.GetUserIdIfPasswordValid(hashPassChall);
+            return userValidation.GetUserIdIfPasswordValid(hashPassChall);
         }
 
-        public bool? IsEmailValid(string email)
+        public bool IsEmailValid(string email)
         {
-            return userValidation?.IsEmailValid(email);
+            return userValidation.IsEmailValid(email);
         }
 
-        public bool? IsLoginValid(string login)
+        public bool IsLoginValid(string login)
         {
-            return userValidation?.IsLoginValid(login);
+            return userValidation.IsLoginValid(login);
         }
 
         public void recoverPassword(string email)

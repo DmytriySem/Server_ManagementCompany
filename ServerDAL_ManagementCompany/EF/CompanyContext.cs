@@ -23,8 +23,8 @@ namespace ServerDAL_ManagementCompany
         // connection string in the application configuration file.
         public CompanyContext(string connStringName)
             : base(connStringName)
-            // : base("name=CompanyContext")
-        {   
+        // : base("name=CompanyContext")
+        {
             //Database.SetInitializer(new DropCreateDatabaseAlways<CompanyContext>());
             //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<CompanyContext>());
         }
@@ -44,15 +44,16 @@ namespace ServerDAL_ManagementCompany
             //    //    .WithRequiredPrincipal(c => c.OwnershipAndRent);
         }
 
-            // Add a DbSet for each entity type that you want to include in your model. For more information 
-            // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
+        // Add a DbSet for each entity type that you want to include in your model. For more information 
+        // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 
 
-            //-----------------------ManagementCompany-----------------
+        //-----------------------ManagementCompany-----------------
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<House> Houses { get; set; }
         public virtual DbSet<Cellar> Cellars { get; set; }
         public virtual DbSet<CompanyData> CompanyDatas { get; set; }
+        public virtual DbSet<CompanyNews> CompanyNews { get; set; }
 
         //-----------------------UserAccount-----------------
         public virtual DbSet<User> Users { get; set; }
@@ -61,7 +62,9 @@ namespace ServerDAL_ManagementCompany
         public virtual DbSet<Territory> Territories { get; set; }
         public virtual DbSet<GarbagePlace> GarbagePlaces { get; set; }
         public virtual DbSet<ParkingPlace> ParkingPlaces { get; set; }
+        public virtual DbSet<ParkingTerritory> ParkingTerritories { get; set; }
         public virtual DbSet<PlayGround> PlayGrounds { get; set; }
+        public virtual DbSet<AdjoiningTerritory> AdjoiningTerritory { get; set; }
         public virtual DbSet<RestTerritory> RestTerritories { get; set; }
 
         //-----------------------Equipment-----------------

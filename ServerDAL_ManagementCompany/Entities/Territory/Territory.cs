@@ -8,16 +8,12 @@ namespace ServerDAL_ManagementCompany.Entities.Territory
 {
     public class Territory : PlaceAbstr
     {
-        public PlayGround PlayGround { get; set; }
-        public RestTerritory RestTerritory { get; set; }
-
-        public ICollection<GarbagePlace> GarbagePlaces { get; set; }
-        public ICollection<ParkingPlace> ParkingPlaces { get; set; }
-
+        public ParkingTerritory ParkingTerritory { get; set; }
+        public AdjoiningTerritory AdjoiningTerritory { get; set; }
         public Territory()
         {
-            GarbagePlaces = new List<GarbagePlace>();
-            ParkingPlaces = new List<ParkingPlace>();
+            ParkingTerritory = new ParkingTerritory();
+            AdjoiningTerritory = new AdjoiningTerritory();
         }
     }
 }

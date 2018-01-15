@@ -11,8 +11,10 @@ namespace ServerDAL_ManagementCompany.Realizations
     public class UserValidation : IUserValidation
     {
         private CompanyContext ctx = null;
+
         private static string challenge = String.Empty;
         private static string log = String.Empty;
+
         private int challengeLength = 10;
 
         public UserValidation(string connStr)
@@ -33,14 +35,14 @@ namespace ServerDAL_ManagementCompany.Realizations
             return challenge;
         }
 
-        public bool? IsEmailValid(string email)
+        public bool IsEmailValid(string email)
         {
             int count = ctx.Users.Where(f => f.Email == email).Count();
 
             return count != 0 ? true : false;
         }
 
-        public int? GetUserIdIfPasswordValid(string hashPassChall)
+        public int GetUserIdIfPasswordValid(string hashPassChall)
         {
             byte[] hashPass = ctx.Users.Where(f => f.Login == log).Select(f => f.Password).First();
             string hashPassword = Encoding.ASCII.GetString(hashPass);
@@ -57,7 +59,7 @@ namespace ServerDAL_ManagementCompany.Realizations
                 return -1;
         }
 
-        public bool? IsLoginValid(string login)
+        public bool IsLoginValid(string login)
         {
             int count = ctx.Users.Where(f => f.Login == login).Count();
 

@@ -26,29 +26,38 @@ namespace WcfService_ManagementCompany
         {
             connStr = GetConnStrForThisMashine.GetConnStr();
 
-            userValidate = new ValidateUser(connStr);
-            createHouse = new CreateHouse(connStr);
-            saveUser = new SaveUserCredentials(connStr);
+            try
+            {
+                userValidate = /*null;//*/ new ValidateUser(connStr);
+                if (userValidate == null)
+                    throw new Exception("out of memory");
+                createHouse = new CreateHouse(connStr);
+                saveUser = new SaveUserCredentials(connStr);
+            }
+            catch(OutOfMemoryException ex)
+            {
+                throw new Exception("out of memory" + ex.InnerException.ToString());
+            }
         }
 
         public string GetRandomStringFromServer(string login)
         {
-            return userValidate?.GetRandomStringByLoginForCheckPass(login);
+            return userValidate.GetRandomStringByLoginForCheckPass(login);
         }
 
-        public bool? IsEmailValid(string email)
+        public bool IsEmailValid(string email)
         {
-            return userValidate?.IsEmailValid(email);
+            return userValidate.IsEmailValid(email);
         }
 
-        public bool? IsLoginValid(string login)
+        public bool IsLoginValid(string login)
         {
-            return userValidate?.IsLoginValid(login);
+            return userValidate.IsLoginValid(login);
         }
 
-        public int? GetUserIdIfPasswordValid(string hashPassChall)
+        public int GetUserIdIfPasswordValid(string hashPassChall)
         {
-            return userValidate?.GetUserIdIfPasswordValid(hashPassChall);
+            return userValidate.GetUserIdIfPasswordValid(hashPassChall);
         }
 
         public void CreateHouse()

@@ -8,10 +8,10 @@ namespace ServerDAL_ManagementCompany.Interfaces
 {
     public interface IUserValidation
     {
-        bool? IsLoginValid(string login);
+        bool IsLoginValid(string login);
         string GetRandomStringByLoginForCheckPass(string login);
-        int? GetUserIdIfPasswordValid(string hashPassChall);
-        bool? IsEmailValid(string email);
+        int GetUserIdIfPasswordValid(string hashPassChall);
+        bool IsEmailValid(string email);
         void recoverPassword(string email);
     }
 }

@@ -14,13 +14,13 @@ namespace WcfService_ManagementCompany
     {
 
         [OperationContract]
-        bool? IsLoginValid(string login);
+        bool IsLoginValid(string login);
 
         [OperationContract]
-        int? GetUserIdIfPasswordValid(string hashPassChall);
+        int GetUserIdIfPasswordValid(string hashPassChall);
 
         [OperationContract]
-        bool? IsEmailValid(string email);
+        bool IsEmailValid(string email);
 
         [OperationContract]
         string GetRandomStringFromServer(string login);
@@ -30,6 +30,7 @@ namespace WcfService_ManagementCompany
 
         [OperationContract]
         void RecoverPassword(string email);
+
     }
 
 

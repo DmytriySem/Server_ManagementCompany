@@ -13,5 +13,6 @@ namespace ServerDAL_ManagementCompany.Entities.ManagementCompany
         public string Email { get; set; }
         public List<string> Phones { get; set; }
         public virtual Company Company { get; set; }
+        public List<CompanyNews> CompanyNews { get; set; }
     }
 }
