@@ -28,9 +28,9 @@ namespace ServerBLL_ManagementCompany.Realizations
             return workMethods.GetAllLiftsStates();
         }
 
-        public List<bool> GetAllLightsStates()
+        public List<bool> GetAllFloorsLightsStates()
         {
-            return workMethods.GetAllLightsStates();
+            return workMethods.GetAllFloorsLightsStates();
         }
 
         public UserDTO GetUserByNumberOfAppartment(int numOfAppartment)
@@ -47,6 +47,16 @@ namespace ServerBLL_ManagementCompany.Realizations
         public void TurnOnOffLight(int idLight)
         {
             workMethods.TurnOnOffLight(idLight);
+        }
+
+        public void SendMailsToAllUsers(int userStatus, string message)
+        {
+            workMethods.SendMailsToAllUsers(userStatus, message);
+        }
+
+        public List<bool> GetAllEntrancesLights()
+        {
+            return workMethods.GetAllEntrancesLights();
         }
     }
 }

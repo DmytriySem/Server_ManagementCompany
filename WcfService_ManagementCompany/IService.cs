@@ -12,7 +12,7 @@ namespace WcfService_ManagementCompany
     [ServiceContract]
     public interface IService
     {
-
+        #region USER VALIDATE METHODS
         [OperationContract]
         bool IsLoginValid(string login);
 
@@ -26,10 +26,18 @@ namespace WcfService_ManagementCompany
         string GetRandomStringFromServer(string login);
 
         [OperationContract]
-        void CreateHouse();
+        void RecoverPassword(string email);
+
+        #endregion
+
+        #region CREATE COMPANY
 
         [OperationContract]
-        void RecoverPassword(string email);
+        void CreateHouse();
+
+        #endregion
+
+        #region WORKING METHODS
 
         [OperationContract]
         DTOUser GetUserByNumberOfAppartment(int numOfAppartment);
@@ -41,7 +49,10 @@ namespace WcfService_ManagementCompany
         void TurnOnOffLift(int idLift);
 
         [OperationContract]
-        List<bool> GetAllLightsStates();
+        List<bool> GetAllFloorsLightsStates();
+
+        [OperationContract]
+        List<bool> GetAllEntrancesLights();
 
         [OperationContract]
         List<bool> GetAllLiftsStates();
@@ -50,7 +61,9 @@ namespace WcfService_ManagementCompany
         void CleanEntrance(int idEntrance);
 
         [OperationContract]
-        void SendMailToUser(int numberOfAppartment, string message);
+        void SendMailsToAllUsers(int userStatus, string message);
+
+        #endregion
     }
 
 

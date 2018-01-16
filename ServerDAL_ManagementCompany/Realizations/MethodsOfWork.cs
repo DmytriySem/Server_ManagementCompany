@@ -8,6 +8,8 @@ using DTOs_library;
 using ServerDAL_ManagementCompany.Entities;
 using ServerDAL_ManagementCompany.Entities.Equipment;
 using ServerDAL_ManagementCompany.Entities.Territory;
+using EASendMail;
+using ServerDAL_ManagementCompany.Entities.ManagementCompany;
 
 namespace ServerDAL_ManagementCompany.Realizations
 {
@@ -21,44 +23,28 @@ namespace ServerDAL_ManagementCompany.Realizations
         }
 
         #region ADMIN
-
+        /// <summary>
+        /// NEWS
+        /// </summary>
+        /// <param name="image"></param>
         public void AddImageToNewsInDB(byte[] image)
         {
-            throw new NotImplementedException();
-        }
-
-        public void CleanEntrance(int idEntrance)
-        {
-            var entranceCleanStatus = ctx.Entrances.Where(x => x.Id == idEntrance).Single();
-
-            if (entranceCleanStatus.StatusOfCleaning == StatusOfCleaning.CLEAN)
+            CompanyData companyData = ctx.Companies.Where(x=>x.Id==1).Select(x=>x.CompanyData).Single();
+            CompanyNews companyNews = new CompanyNews()
             {
-                entranceCleanStatus.StatusOfCleaning = StatusOfCleaning.DURT;
-                ctx.Entry(entranceCleanStatus).State = System.Data.Entity.EntityState.Modified;
-            }
-
+                CompanyData = companyData,
+                Date = DateTime.Now,
+                Image = image
+            };
+            ctx.CompanyNews.Add(companyNews);
             ctx.SaveChanges();
-
-            
         }
 
-        public List<bool> GetAllCleaningStatusOfEntrances()
-        {
-            var allEntranceCleaningStates = ((from entrance in ctx.Entrances
-                                              select entrance.StatusOfCleaning).ToList()).Select(x => Convert.ToBoolean(x)).ToList();//new Boolean(){ Convert.ToBoolean(entrance.StatusOfCleaning) })).ToList();
-            //ctx.Entrances.Select(x => new Boolean() { Convert.ToBoolean(x.StatusOfCleaning)})
-
-            //List<bool> resultList = new List<bool>();
-            //foreach (var item in allEntranceCleaningStates)
-            //{
-            //    resultList.Add(Convert.ToBoolean(item));
-            //}
-            //анонимный тип через select
-            return allEntranceCleaningStates;
-        }
-
-
-
+        /// <summary>
+        //WORK WITH USERS
+        /// </summary>
+        /// <param name="numOfAppartment"></param>
+        /// <returns></returns>
         public UserDTO GetUserByNumberOfAppartment(int numOfAppartment)
         {
             User user = ctx.Appartments.Where(x => x.AppartmentNumber == numOfAppartment).Select(x => x.User).First();
@@ -74,48 +60,80 @@ namespace ServerDAL_ManagementCompany.Realizations
             return userDTO;
         }
 
-        public void SendMailsToAllUsers(string userStatus, string message)
+        /// <summary>
+        /// SENDING MAILS
+        /// </summary>
+        /// <param name="userStatus"></param>
+        /// <param name="message"></param>
+        public void SendMailsToAllUsers(int userStatus, string message)
         {
-            throw new NotImplementedException();
-        }
+            string senderEmail = "dmitriysemysiuk@gmail.com";//ctx.CompanyDatas.Select(x => x.Email).First();
+            string senderPass = "lizilla15";// "helloworld18";
 
+            SmtpServer server = new SmtpServer("smtp.gmail.com", 465);
+            server.ConnectType = SmtpConnectType.ConnectSSLAuto;
+            server.User = senderEmail;
+            server.Password = senderPass;
+
+            UserStatus tempStat = UserStatus.ADMIN;
+
+            switch (userStatus) ///дописать!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            {
+                case 0:
+
+                    break;
+                case 1:
+                    tempStat = UserStatus.USER;
+                    break;
+            }
+
+            List<string> emails = ctx.Users.Where(x => x.UserStatus == tempStat).Select(x => x.Email).ToList();
+            foreach (var item in emails)
+            {
+                if (item == null)
+                    continue;
+
+                SmtpClient client = new SmtpClient();
+
+                SmtpMail letter = new SmtpMail("TryIt")
+                {
+                    From = senderEmail,
+                    To = item,
+                    Subject = "---COMPANY---",
+                    TextBody = message
+                };
+
+                try
+                {
+                    client.SendMail(server, letter);
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+        }
         public void SendMailToUser(int numberOfAppartment, string message)
         {
             throw new NotImplementedException();
         }
-
         public void SendMailToWorker(string status, string message)
         {
             throw new NotImplementedException();
         }
 
-
-        public List<bool> GetAllLiftsStates()
-        {
-            //var allLiftsStates = (from lift in ctx.Lifts
-            //                      select lift.EquipmentStatus).ToList();
-
-            List<bool> allLiftsStates = (ctx.Entrances.Select(x => x.StatusOfCleaning).ToList()).Select(x => Convert.ToBoolean(x)).ToList();
-
-            //List<bool> resultList = new List<bool>();
-            //foreach (var item in allLiftsStates)
-            //{
-            //    resultList.Add(Convert.ToBoolean(item));
-            //}
-
-            return allLiftsStates;
-        }
-
+        /// <summary>
+        /// LIFT CONTROL
+        /// </summary>
+        /// <param name="idLift"></param>
         public void TurnOnOffLift(int idLift)
         {
-            var query = from lift in ctx.Lifts
-                        where lift.Id == idLift
-                        select lift;
+            var liftStatus = ctx.Lifts.Where(x => x.Id == idLift).Single();
 
-            foreach (var item in query)
-            {
-                item.EquipmentStatus = item.EquipmentStatus == EquipmentStatus.NOTWORK ? EquipmentStatus.WORK : EquipmentStatus.NOTWORK;
-            }
+            liftStatus.EquipmentStatus =
+                liftStatus.EquipmentStatus == EquipmentStatus.WORK ? EquipmentStatus.NOTWORK : EquipmentStatus.WORK;
+
+            ctx.Entry(liftStatus).State = System.Data.Entity.EntityState.Modified;
 
             try
             {
@@ -126,42 +144,82 @@ namespace ServerDAL_ManagementCompany.Realizations
                 throw new Exception("cannot submit changes" + ex.InnerException.ToString());
             }
         }
-
-        public List<bool> GetAllLightsStates()
+        public List<bool> GetAllLiftsStates()
         {
-            var allLightsStates = (from light in ctx.Lights
-                        select light.EquipmentStatus).ToList();
+            List<bool> allLiftsStates = (ctx.Lifts.Select(x => x.EquipmentStatus).ToList()).Select(x=>Convert.ToBoolean(x)).ToList();
 
-            List<bool> resultList = new List<bool>();
-            foreach (var item in allLightsStates)
-            {
-                resultList.Add(Convert.ToBoolean(item));
-            }
-
-            return resultList;
+            return allLiftsStates;
         }
 
+        /// <summary>
+        /// LIGHT CONTROL
+        /// </summary>
+        /// <param name="idLight"></param>
         public void TurnOnOffLight(int idLight)
         {
-            var query = from light in ctx.Lights
-                        where light.Id == idLight
-                        select light;
+            var lightStatus = ctx.Lights.Where(x => x.Id == idLight).Single();
 
-            foreach (var item in query)
-            {
-                item.EquipmentStatus = item.EquipmentStatus == EquipmentStatus.NOTWORK ? EquipmentStatus.WORK : EquipmentStatus.NOTWORK;
-            }
+            lightStatus.EquipmentStatus = lightStatus.EquipmentStatus == EquipmentStatus.NOTWORK ? EquipmentStatus.WORK : EquipmentStatus.NOTWORK;
+            ctx.Entry(lightStatus).State = System.Data.Entity.EntityState.Modified;
 
             try
             {
                 ctx.SaveChanges();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception("cannot submit changes" + ex.InnerException.ToString());
             }
         }
+        public List<bool> GetAllFloorsLightsStates() //get all floors states
+        {
+            //var selectedUsers = users.SelectMany(u => u.Languages,
+            //                (u, l) => new { User = u, Lang = l })
+            //              .Where(u => u.Lang == "английский" && u.User.Age < 28)
+            //              .Select(u => u.User);
 
+
+            //!!!!!!!!!!!!!!!!!var res = ctx.Lights.Select(x => x).Re // Select(x=>x. )
+
+
+            List<bool> allLightsStates = ((ctx.Floors.Select(z => z.Hallway).ToList())
+                .Select(x => x.Lights).ToList()).Select(x => Convert.ToBoolean(x)).ToList();
+
+
+            //Select(x => x.Lights).Where(x => Convert.ToBoolean(x)).ToList();
+
+            return allLightsStates;
+        }
+        public List<bool> GetAllEntrancesLights() //get all floors states
+        {
+            var sdf = ctx.Entrances.Select(x => x.Lights).ToList();
+            
+
+            List<EquipmentStatus> allLightsStates = ctx.Lights.Select(x => x.EquipmentStatus).ToList();
+            List<bool> res = allLightsStates.Select(x => Convert.ToBoolean(x)).ToList();
+            return res;
+        }
+
+        /// <summary>
+        /// CLEAN CONTROL
+        /// </summary>
+        /// <param name="idEntrance"></param>
+        public void CleanEntrance(int idEntrance)
+        {
+            var entranceCleanStatus = ctx.Entrances.Where(x => x.Id == idEntrance).Single();
+
+            entranceCleanStatus.StatusOfCleaning =
+                entranceCleanStatus.StatusOfCleaning == StatusOfCleaning.CLEAN ? StatusOfCleaning.DURT : StatusOfCleaning.CLEAN;
+            ctx.Entry(entranceCleanStatus).State = System.Data.Entity.EntityState.Modified;
+
+            ctx.SaveChanges();
+        }
+        public List<bool> GetAllCleaningStatusOfEntrances()
+        {
+            List<bool> allEntranceCleaningStates = (ctx.Entrances.Select(x => x.StatusOfCleaning).ToList()).Select(x => Convert.ToBoolean(x)).ToList();
+
+            return allEntranceCleaningStates;
+        }
         #endregion
     }
 }

@@ -13,10 +13,11 @@ namespace ServerDAL_ManagementCompany.Interfaces
         UserDTO GetUserByNumberOfAppartment(int numOfAppartment);
 
         void SendMailToUser(int numberOfAppartment, string message);
-        void SendMailsToAllUsers(string userStatus, string message);
+        void SendMailsToAllUsers(int userStatus, string message);
         void SendMailToWorker(string status, string message);
 
-        List<bool> GetAllLightsStates();
+        List<bool> GetAllFloorsLightsStates();
+        List<bool> GetAllEntrancesLights();
         void TurnOnOffLight(int idLight);
 
         List<bool> GetAllLiftsStates();

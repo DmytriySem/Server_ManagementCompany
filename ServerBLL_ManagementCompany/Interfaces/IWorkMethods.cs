@@ -10,10 +10,12 @@ namespace ServerBLL_ManagementCompany.Interfaces
     public interface IWorkMethods
     {
         UserDTO GetUserByNumberOfAppartment(int numOfAppartment);
-        List<bool> GetAllLightsStates();
+        List<bool> GetAllEntrancesLights();
+        List<bool> GetAllFloorsLightsStates();
         void TurnOnOffLight(int idLight);
         List<bool> GetAllLiftsStates();
         void TurnOnOffLift(int idLift);
         void CleanEntrance(int idEntrance);
+        void SendMailsToAllUsers(int userStatus, string message);
     }
 }

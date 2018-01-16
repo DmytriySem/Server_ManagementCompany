@@ -16,8 +16,6 @@ namespace WcfService_ManagementCompany
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class Service : IService
     {
-        private const string connStrServer = "DESKTOP-P136AIJ";
-        private const string connStrClient = @"DMITRIY-ПК\SQLEXPRESS";
         private string connStr = String.Empty;
         private IValidateUser userValidate = null;
         private ICreateHouse createHouse = null;
@@ -43,6 +41,8 @@ namespace WcfService_ManagementCompany
             }
         }
 
+        #region USER VALIDATE METHODS
+
         public string GetRandomStringFromServer(string login)
         {
             return userValidate.GetRandomStringByLoginForCheckPass(login);
@@ -63,15 +63,23 @@ namespace WcfService_ManagementCompany
             return userValidate.GetUserIdIfPasswordValid(hashPassChall);
         }
 
+        public void RecoverPassword(string email)
+        {
+            userValidate.recoverPassword(email);
+        }
+
+        #endregion
+
+        #region CREATE COMPANY
+
         public void CreateHouse()
         {
             createHouse.BuildHouse();
         }
 
-        public void RecoverPassword(string email)
-        {
-            userValidate.recoverPassword(email);
-        }
+        #endregion
+
+        #region WORKING METHODS
 
         public DTOUser GetUserByNumberOfAppartment(int numOfAppartment)
         {
@@ -99,9 +107,9 @@ namespace WcfService_ManagementCompany
             methodsWork.TurnOnOffLift(idLift);
         }
 
-        public List<bool> GetAllLightsStates()
+        public List<bool> GetAllFloorsLightsStates()
         {
-            return methodsWork.GetAllLightsStates();
+            return methodsWork.GetAllFloorsLightsStates();
         }
 
         public List<bool> GetAllLiftsStates()
@@ -114,9 +122,16 @@ namespace WcfService_ManagementCompany
             methodsWork.CleanEntrance(idEntrance);
         }
 
-        public void SendMailToUser(int numberOfAppartment, string message)
+        public void SendMailsToAllUsers(int userStatus, string message)
         {
-            throw new NotImplementedException();
+            methodsWork.SendMailsToAllUsers(userStatus, message);
         }
+
+        public List<bool> GetAllEntrancesLights()
+        {
+            return methodsWork.GetAllEntrancesLights();
+        }
+
+        #endregion
     }
 }
