@@ -91,12 +91,12 @@
     <Compile Include="Entities\Territory\Territory.cs" />
     <Compile Include="Entities\UserAccount\User.cs" />
     <Compile Include="Entities\UserAccount\UserStatus.cs" />
-    <Compile Include="Interfaces\IAdminMethods.cs" />
+    <Compile Include="Interfaces\IMethodsOfWork.cs" />
     <Compile Include="Interfaces\IBuildHouse.cs" />
     <Compile Include="Interfaces\ISaveUser.cs" />
     <Compile Include="Interfaces\IUserValidation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Realizations\AdminMethods.cs" />
+    <Compile Include="Realizations\MethodsOfWork.cs" />
     <Compile Include="Realizations\BuildHouse.cs" />
     <Compile Include="Realizations\SaveUser.cs" />
     <Compile Include="Realizations\UserValidation.cs" />

@@ -22,7 +22,7 @@ namespace WcfService_ManagementCompany
         private IValidateUser userValidate = null;
         private ICreateHouse createHouse = null;
         private ISaveUserCredentials saveUser = null;
-        private IMethodsOfAdmin adminMethods = null;
+        private IWorkMethods methodsWork = null;
 
         public Service()
         {
@@ -35,7 +35,7 @@ namespace WcfService_ManagementCompany
                     throw new Exception("out of memory");
                 createHouse = new CreateHouse(connStr);
                 saveUser = new SaveUserCredentials(connStr);
-                adminMethods = new MethodsOfAdmin(connStr);
+                methodsWork = new WorkMethods(connStr);
             }
             catch(OutOfMemoryException ex)
             {
@@ -76,7 +76,7 @@ namespace WcfService_ManagementCompany
         public DTOUser GetUserByNumberOfAppartment(int numOfAppartment)
         {
 
-            UserDTO userDTO =  adminMethods.GetUserByNumberOfAppartment(numOfAppartment);
+            UserDTO userDTO =  methodsWork.GetUserByNumberOfAppartment(numOfAppartment);
             DTOUser dtoUser = new DTOUser()
             {
                 FirstName = userDTO.FirstName,
@@ -87,6 +87,36 @@ namespace WcfService_ManagementCompany
             };
 
             return dtoUser;
+        }
+
+        public void TurnOnOffLight(int idLight)
+        {
+            methodsWork.TurnOnOffLight(idLight);
+        }
+
+        public void TurnOnOffLift(int idLift)
+        {
+            methodsWork.TurnOnOffLift(idLift);
+        }
+
+        public List<bool> GetAllLightsStates()
+        {
+            return methodsWork.GetAllLightsStates();
+        }
+
+        public List<bool> GetAllLiftsStates()
+        {
+            return methodsWork.GetAllLiftsStates();
+        }
+
+        public void CleanEntrance(int idEntrance)
+        {
+            methodsWork.CleanEntrance(idEntrance);
+        }
+
+        public void SendMailToUser(int numberOfAppartment, string message)
+        {
+            throw new NotImplementedException();
         }
     }
 }

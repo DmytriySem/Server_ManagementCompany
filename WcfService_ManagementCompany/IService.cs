@@ -30,9 +30,27 @@ namespace WcfService_ManagementCompany
 
         [OperationContract]
         void RecoverPassword(string email);
+
         [OperationContract]
         DTOUser GetUserByNumberOfAppartment(int numOfAppartment);
 
+        [OperationContract]
+        void TurnOnOffLight(int idLight);
+
+        [OperationContract]
+        void TurnOnOffLift(int idLift);
+
+        [OperationContract]
+        List<bool> GetAllLightsStates();
+
+        [OperationContract]
+        List<bool> GetAllLiftsStates();
+
+        [OperationContract]
+        void CleanEntrance(int idEntrance);
+
+        [OperationContract]
+        void SendMailToUser(int numberOfAppartment, string message);
     }
 
 

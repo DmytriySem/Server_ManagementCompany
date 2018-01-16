@@ -52,12 +52,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\IMethodsOfAdmin.cs" />
+    <Compile Include="Interfaces\IWorkMethods.cs" />
     <Compile Include="Interfaces\ICreateHouse.cs" />
     <Compile Include="Interfaces\ISaveUserCredentials.cs" />
     <Compile Include="Interfaces\IValidateUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Realizations\MethodsOfAdmin.cs" />
+    <Compile Include="Realizations\WorkMethods.cs" />
     <Compile Include="Realizations\CreateHouse.cs" />
     <Compile Include="Realizations\SaveUserCredentials.cs" />
     <Compile Include="Realizations\ValidateUser.cs" />

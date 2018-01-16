@@ -1,4 +1,5 @@
 ﻿using DTOs_library;
+using ServerDAL_ManagementCompany.Entities.Equipment;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ServerDAL_ManagementCompany.Interfaces
 {
-    public interface IAdminMethods
+    public interface IMethodsOfWork
     {
         UserDTO GetUserByNumberOfAppartment(int numOfAppartment);
 
@@ -16,13 +17,13 @@ namespace ServerDAL_ManagementCompany.Interfaces
         void SendMailToWorker(string status, string message);
 
         List<bool> GetAllLightsStates();
-        void TurnOnOffLight(int id, bool workState);
+        void TurnOnOffLight(int idLight);
 
         List<bool> GetAllLiftsStates();
-        void TurnOnOffLift(int id, bool state);
+        void TurnOnOffLift(int idLift);
 
-        List<bool> GetAllCleaningEntrance();
-        void CleanEntrance(int id, bool state);
+        List<bool> GetAllCleaningStatusOfEntrances();
+        void CleanEntrance(int idEntrance);
 
         void AddImageToNewsInDB(byte[] image);
 
