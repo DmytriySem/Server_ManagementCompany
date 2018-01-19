@@ -10,6 +10,8 @@ namespace ServerDAL_ManagementCompany.Entities.Room
     {
         public int BasementNumber { get; set; }
         public StatusOfPremises StatusOfPremises { get; set; }
+
+        public int? UserId { get; set; }
         public User User { get; set; }
     }
 }

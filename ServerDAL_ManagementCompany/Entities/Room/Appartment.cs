@@ -11,6 +11,11 @@ namespace ServerDAL_ManagementCompany.Entities.Room
         public int AppartmentNumber { get; set; }
         public int NumberOfResidents { get; set; }
         public StatusOfPremises StatusOfPremises { get; set; }
+
+        public int? UserId { get; set; }
         public User User { get; set; }
+
+        public int? FloorId { get; set; }
+        public Floor Floor { get; set; }
     }
 }

@@ -11,6 +11,11 @@ namespace ServerDAL_ManagementCompany.Entities.Territory
     {
         public int ParkingNumber { get; set; }
         public StatusOfPremises StatusOfPremises{ get; set; }
+
+        public int? UserId { get; set; }
         public User User { get; set; }
+
+        public int? ParkingTerritoryId { get; set; }
+        public ParkingTerritory ParkingTerritory { get; set; }
     }
 }

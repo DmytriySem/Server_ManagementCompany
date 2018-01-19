@@ -13,6 +13,9 @@ namespace ServerDAL_ManagementCompany.Entities.ManagementCompany.House
         public ICollection<Cellar> Cellars { get; set; }
         public ICollection<Entrance> Entrances{ get; set; }
 
+        public int? CompanyId { get; set; }
+        public Company Company { get; set; }
+
         public House()
         {
             Cellars = new List<Cellar>();

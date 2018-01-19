@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServerDAL_ManagementCompany.Entities.ManagementCompany;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,10 @@ namespace ServerDAL_ManagementCompany.Entities.Territory
     {
         public ParkingTerritory ParkingTerritory { get; set; }
         public AdjoiningTerritory AdjoiningTerritory { get; set; }
+
+        public int? CompanyId { get; set; }
+        public Company Company { get; set; }
+
         public Territory()
         {
             ParkingTerritory = new ParkingTerritory();

@@ -30,6 +30,14 @@ namespace ServerDAL_ManagementCompany
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Intercom>()
+                .HasRequired(l => l.Entrance)
+                .WithRequiredPrincipal(m => m.Intercom);
+
+            //modelBuilder.Entity<PlayGround>()
+            //    .HasMany(l => l.Lights)
+            //    .WithRequired(m => m.PlayGround);
+
             modelBuilder.Entity<Company>()
                 .HasOptional(s => s.CompanyData) // Mark Address property optional in Student entity
                 .WithRequired(ad => ad.Company);

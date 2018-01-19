@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data;
 using System.Text;
 using System.Threading.Tasks;
 using DTOs_library;
@@ -77,13 +78,19 @@ namespace ServerDAL_ManagementCompany.Realizations
 
             UserStatus tempStat = UserStatus.ADMIN;
 
-            switch (userStatus) ///дописать!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            switch (userStatus)
             {
-                case 0:
-
-                    break;
                 case 1:
                     tempStat = UserStatus.USER;
+                    break;
+                case 2:
+                    tempStat = UserStatus.DIRECTOR;
+                    break;
+                case 3:
+                    tempStat = UserStatus.ACCOUNTANT;
+                    break;
+                case 4:
+                    tempStat = UserStatus.JANITOR;
                     break;
             }
 
@@ -146,7 +153,7 @@ namespace ServerDAL_ManagementCompany.Realizations
         }
         public List<bool> GetAllLiftsStates()
         {
-            List<bool> allLiftsStates = (ctx.Lifts.Select(x => x.EquipmentStatus).ToList()).Select(x=>Convert.ToBoolean(x)).ToList();
+            List<bool> allLiftsStates = ctx.Lifts.Select(x => x.EquipmentStatus == EquipmentStatus.WORK).ToList();
 
             return allLiftsStates;
         }
@@ -171,33 +178,21 @@ namespace ServerDAL_ManagementCompany.Realizations
                 throw new Exception("cannot submit changes" + ex.InnerException.ToString());
             }
         }
-        public List<bool> GetAllFloorsLightsStates() //get all floors states
+        public List<bool> GetAllFloorsLightsStates()
         {
-            //var selectedUsers = users.SelectMany(u => u.Languages,
-            //                (u, l) => new { User = u, Lang = l })
-            //              .Where(u => u.Lang == "английский" && u.User.Age < 28)
-            //              .Select(u => u.User);
+            List<bool> floorsLightsStates = (from c in ctx.Lights
+                           join p in ctx.Floors
+                           on c.Hallway equals p.Hallway
+                           select(c.EquipmentStatus != EquipmentStatus.WORK)).ToList();
 
-
-            //!!!!!!!!!!!!!!!!!var res = ctx.Lights.Select(x => x).Re // Select(x=>x. )
-
-
-            List<bool> allLightsStates = ((ctx.Floors.Select(z => z.Hallway).ToList())
-                .Select(x => x.Lights).ToList()).Select(x => Convert.ToBoolean(x)).ToList();
-
-
-            //Select(x => x.Lights).Where(x => Convert.ToBoolean(x)).ToList();
-
-            return allLightsStates;
+            return floorsLightsStates;
         }
-        public List<bool> GetAllEntrancesLights() //get all floors states
+        public List<bool> GetAllEntrancesLights()
         {
-            var sdf = ctx.Entrances.Select(x => x.Lights).ToList();
-            
 
-            List<EquipmentStatus> allLightsStates = ctx.Lights.Select(x => x.EquipmentStatus).ToList();
-            List<bool> res = allLightsStates.Select(x => Convert.ToBoolean(x)).ToList();
-            return res;
+            var entrancesLights = ctx.Lights.Where(x => x.EntranceId != null).Select(x => x.EquipmentStatus == EquipmentStatus.WORK).ToList();
+            
+            return entrancesLights;
         }
 
         /// <summary>
@@ -214,9 +209,10 @@ namespace ServerDAL_ManagementCompany.Realizations
 
             ctx.SaveChanges();
         }
+
         public List<bool> GetAllCleaningStatusOfEntrances()
         {
-            List<bool> allEntranceCleaningStates = (ctx.Entrances.Select(x => x.StatusOfCleaning).ToList()).Select(x => Convert.ToBoolean(x)).ToList();
+            List<bool> allEntranceCleaningStates = ctx.Entrances.Select(x => x.StatusOfCleaning == StatusOfCleaning.CLEAN).ToList();
 
             return allEntranceCleaningStates;
         }

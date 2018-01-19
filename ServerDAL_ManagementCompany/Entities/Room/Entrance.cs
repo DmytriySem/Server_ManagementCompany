@@ -1,4 +1,5 @@
 ﻿using ServerDAL_ManagementCompany.Entities.Equipment;
+using ServerDAL_ManagementCompany.Entities.ManagementCompany.House;
 using ServerDAL_ManagementCompany.Entities.Territory;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,10 @@ namespace ServerDAL_ManagementCompany.Entities.Room
         public Intercom Intercom { get; set; }
         public ICollection<Floor> Floors { get; set; }
         public StatusOfCleaning StatusOfCleaning { get; set; }
+
+        public int? HouseId { get; set; }
+        public House House { get; set; }
+
         public Entrance()
         {
             Cameras = new List<Camera>();

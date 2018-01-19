@@ -1,4 +1,5 @@
-﻿using ServerDAL_ManagementCompany.Entities.Room;
+﻿using ServerDAL_ManagementCompany.Entities.ManagementCompany;
+using ServerDAL_ManagementCompany.Entities.Room;
 using ServerDAL_ManagementCompany.Entities.Territory;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,9 @@ namespace ServerDAL_ManagementCompany.Entities
         public ICollection<ParkingPlace> ParkingPlaces { get; set; }
 
         public UserStatus UserStatus { get; set; }
+
+        public int? CompanyId { get; set; }
+        public Company Company { get; set; }
 
         public User()
         {

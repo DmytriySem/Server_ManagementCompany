@@ -9,5 +9,8 @@ namespace ServerDAL_ManagementCompany.Entities.Territory
     public class GarbagePlace : PlaceAbstr
     {
         public int GarbageNumber { get; set; }
+
+        public int? ParkingTerritoryId { get; set; }
+        public ParkingTerritory ParkingTerritory { get; set; }
     }
 }

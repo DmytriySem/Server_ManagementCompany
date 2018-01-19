@@ -13,6 +13,10 @@ namespace ServerDAL_ManagementCompany.Entities.ManagementCompany
         public int CellarNumber { get; set; }
         public ICollection<Basement> Basements { get; set; }
         public Hallway Hallway { get; set; }
+
+        public int? HouseId { get; set; }
+        public House.House House { get; set; }
+
         public Cellar()
         {
             Basements = new List<Basement>();
