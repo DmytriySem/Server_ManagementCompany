@@ -132,10 +132,6 @@ namespace ServerDAL_ManagementCompany.Realizations
         {
             throw new NotImplementedException();
         }
-        public void SendMailToWorker(string status, string message)
-        {
-            throw new NotImplementedException();
-        }
 
         /// <summary>
         /// LIFT CONTROL
@@ -225,6 +221,95 @@ namespace ServerDAL_ManagementCompany.Realizations
             return allEntranceCleaningStates;
         }
 
+        //-----------------------------------------------------------------
+
+        public void CleanPlayGround(int playGroundId)
+        {
+            var cleanPlayGround = ctx.PlayGrounds.Where(x => x.Id == playGroundId).Single();
+            cleanPlayGround.StatusOfCleaning =
+                cleanPlayGround.StatusOfCleaning == StatusOfCleaning.CLEAN ? StatusOfCleaning.DURT : StatusOfCleaning.CLEAN;
+            ctx.Entry(cleanPlayGround).State = System.Data.Entity.EntityState.Modified;
+
+            ctx.SaveChanges();
+        }
+        public bool GetPlayGroundCleaningStatus(int playGroundId)
+        {
+            return ctx.PlayGrounds.Where(x => x.Id == playGroundId)
+                .Select(x => x.StatusOfCleaning == StatusOfCleaning.CLEAN).Single();
+        }
+        public List<bool> GetPlayGroundGarbagePlacesStatuses(int playGroundId)
+        {
+            List<bool> playGroundGarbagePlaces = 
+                ctx.GarbagePlaces.Where(x => x.PlayGroundId == playGroundId)
+                .Select(x => x.StatusOfCleaning == StatusOfCleaning.CLEAN).ToList();
+
+            return playGroundGarbagePlaces;
+        }
+
+        //-----------------------------------------------------------------
+
+        public void CleanRestTerritory(int restTerritoryId)
+        {
+            var cleanRestTerritory = ctx.RestTerritories.Where(x => x.Id == restTerritoryId).Single();
+            cleanRestTerritory.StatusOfCleaning =
+                cleanRestTerritory.StatusOfCleaning == StatusOfCleaning.CLEAN ? StatusOfCleaning.DURT : StatusOfCleaning.CLEAN;
+            ctx.Entry(cleanRestTerritory).State = System.Data.Entity.EntityState.Modified;
+
+            ctx.SaveChanges();
+        }
+        public bool GetRestTerritoryCleaningStatus(int restTerritoryId)
+        {
+            return ctx.RestTerritories.Where(x => x.Id == restTerritoryId)
+                .Select(x => x.StatusOfCleaning == StatusOfCleaning.CLEAN).Single();
+        }
+        public List<bool> GetRestTerritoryGarbagePlacesStatuses(int restTerritoryId)
+        {
+            List<bool> restTerritoryGarbagePlaces = 
+                ctx.GarbagePlaces.Where(x => x.RestTerritoryId == restTerritoryId)
+                .Select(x => x.StatusOfCleaning == StatusOfCleaning.CLEAN).ToList();
+
+            return restTerritoryGarbagePlaces;
+        }
+
+        //--------------------------------------------------------------------------
+
+        public void CleanTerritory(int territoryId)
+        {
+            var cleanTerritory = ctx.Territories.Where(x => x.Id == territoryId).Single();
+            cleanTerritory.StatusOfCleaning =
+                cleanTerritory.StatusOfCleaning == StatusOfCleaning.CLEAN ? StatusOfCleaning.DURT : StatusOfCleaning.CLEAN;
+            ctx.Entry(cleanTerritory).State = System.Data.Entity.EntityState.Modified;
+
+            ctx.SaveChanges();
+        }
+        public bool GetTerritoryCleaningStatus(int territoryId)
+        {
+            return ctx.Territories.Where(x => x.Id == territoryId)
+                .Select(x => x.StatusOfCleaning == StatusOfCleaning.CLEAN).Single();
+        }
+        public bool GetTerritoryGarbagePlaceStatus(int territoryId)
+        {
+            return ctx.GarbagePlaces.Where(x => x.TerritoryId == territoryId)
+                .Select(x => x.StatusOfCleaning == StatusOfCleaning.CLEAN).Single();
+        }
+
+        public UserDTO GetUserByNumberOfParkingPlace(int numOfParking)
+        {
+            User user = ctx.ParkingPlaces.Where(x => x.ParkingNumber == numOfParking).Select(x => x.User).First();
+            UserDTO userDTO = new UserDTO()
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                BirthDate = user.BirthDate,
+                Email = user.Email,
+                Phone = user.Phone
+            };
+
+            return userDTO;
+        }
+
         #endregion
+
+        //#region 
     }
 }

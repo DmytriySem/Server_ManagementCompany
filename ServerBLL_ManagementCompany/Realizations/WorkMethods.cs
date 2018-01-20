@@ -73,5 +73,59 @@ namespace ServerBLL_ManagementCompany.Realizations
         {
             workMethods.AddImageNewsToDB(image, companyId);
         }
+
+        //------------------------------------------------------------
+
+        public void CleanPlayGround(int playGroundId)
+        {
+            workMethods.CleanPlayGround(playGroundId);
+        }
+
+        public bool GetPlayGroundCleaningStatus(int playGroundId)
+        {
+            return workMethods.GetPlayGroundCleaningStatus(playGroundId);
+        }
+
+        public List<bool> GetPlayGroundGarbagePlacesStatuses(int playGroundId)
+        {
+            return workMethods.GetPlayGroundGarbagePlacesStatuses(playGroundId);
+        }
+
+        //------------------------------------------------------------
+
+        public void CleanRestTerritory(int restTerritoryId)
+        {
+            workMethods.CleanRestTerritory(restTerritoryId);
+        }
+
+        public bool GetRestTerritoryCleaningStatus(int restTerritoryId)
+        {
+            return workMethods.GetRestTerritoryCleaningStatus(restTerritoryId);
+        }
+
+        public List<bool> GetRestTerritoryGarbagePlacesStatuses(int restTerritoryId)
+        {
+            return workMethods.GetRestTerritoryGarbagePlacesStatuses(restTerritoryId);
+        }
+
+        public void CleanTerritory(int territoryId)
+        {
+            workMethods.CleanTerritory(territoryId);
+        }
+
+        public bool GetTerritoryCleaningStatus(int territoryId)
+        {
+            return workMethods.GetTerritoryCleaningStatus(territoryId);
+        }
+
+        public bool GetTerritoryGarbagePlaceStatus(int territoryId)
+        {
+            return workMethods.GetTerritoryGarbagePlaceStatus(territoryId);
+        }
+
+        public UserDTO GetUserByNumberOfParkingPlace(int numOfParking)
+        {
+            return workMethods.GetUserByNumberOfParkingPlace(numOfParking);
+        }
     }
 }

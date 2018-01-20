@@ -147,6 +147,76 @@ namespace WcfService_ManagementCompany
             methodsWork.AddImageNewsToDB(image, companyId);
         }
 
+        //-------------------------------------------------------------------
+
+        public void CleanPlayGround(int playGroundId)
+        {
+            methodsWork.CleanPlayGround(playGroundId);
+        }
+
+        public bool GetPlayGroundCleaningStatus(int playGroundId)
+        {
+            return methodsWork.GetPlayGroundCleaningStatus(playGroundId);
+        }
+
+        public List<bool> GetPlayGroundGarbagePlacesStatuses(int playGroundId)
+        {
+            return methodsWork.GetPlayGroundGarbagePlacesStatuses(playGroundId);
+        }
+
+        //------------------------------------------------------------------
+
+        public void CleanRestTerritory(int restTerritoryId)
+        {
+            methodsWork.CleanRestTerritory(restTerritoryId);
+        }
+
+        public bool GetRestTerritoryCleaningStatus(int restTerritoryId)
+        {
+            return methodsWork.GetRestTerritoryCleaningStatus(restTerritoryId);
+        }
+
+        public List<bool> GetRestTerritoryGarbagePlacesStatuses(int restTerritoryId)
+        {
+            return methodsWork.GetRestTerritoryGarbagePlacesStatuses(restTerritoryId);
+        }
+
+        //---------------------------------------------------------------------------
+
+        public void CleanTerritory(int territoryId)
+        {
+            methodsWork.CleanTerritory(territoryId);
+        }
+
+        public bool GetTerritoryCleaningStatus(int territoryId)
+        {
+            return methodsWork.GetTerritoryCleaningStatus(territoryId);
+        }
+
+        public bool GetTerritoryGarbagePlaceStatus(int territoryId)
+        {
+            return methodsWork.GetTerritoryGarbagePlaceStatus(territoryId);
+        }
+
+        public DTOUser GetUserByNumberOfParkingPlace(int numOfParking)
+        {
+            UserDTO userDTO = methodsWork.GetUserByNumberOfParkingPlace(numOfParking);
+            DTOUser dtoUser = new DTOUser()
+            {
+                FirstName = userDTO.FirstName,
+                LastName = userDTO.LastName,
+                BirthDate = userDTO.BirthDate,
+                Email = userDTO.Email,
+                Phone = userDTO.Phone
+            };
+
+            return dtoUser;
+        }
+
+        //---------------------------------------------------------------------------
+
+
+
         #endregion
     }
 }

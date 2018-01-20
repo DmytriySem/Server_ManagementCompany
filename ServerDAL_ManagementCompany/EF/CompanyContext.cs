@@ -34,6 +34,10 @@ namespace ServerDAL_ManagementCompany
                 .HasRequired(l => l.Entrance)
                 .WithRequiredPrincipal(m => m.Intercom);
 
+            modelBuilder.Entity<GarbagePlace>()
+                .HasRequired(l => l.Territory)
+                .WithRequiredPrincipal(m => m.GarbagePlace);
+
             //modelBuilder.Entity<PlayGround>()
             //    .HasMany(l => l.Lights)
             //    .WithRequired(m => m.PlayGround);

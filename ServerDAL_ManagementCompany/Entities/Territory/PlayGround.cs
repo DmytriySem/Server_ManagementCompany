@@ -11,10 +11,12 @@ namespace ServerDAL_ManagementCompany.Entities.Territory
     {
         public ICollection<Light> Lights { get; set; }
         public ICollection<Camera> Cameras { get; set; }
+        public ICollection<GarbagePlace> GarbagePlaces { get; set; }
         public PlayGround()
         {
             Lights = new List<Light>();
             Cameras = new List<Camera>();
+            GarbagePlaces = new List<GarbagePlace>();
         }
     }
 }

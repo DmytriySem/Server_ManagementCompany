@@ -11,6 +11,7 @@ namespace ServerDAL_ManagementCompany.Entities.Territory
     {
         public ParkingTerritory ParkingTerritory { get; set; }
         public AdjoiningTerritory AdjoiningTerritory { get; set; }
+        public GarbagePlace GarbagePlace { get; set; }
 
         public int? CompanyId { get; set; }
         public Company Company { get; set; }

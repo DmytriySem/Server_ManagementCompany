@@ -43,6 +43,9 @@ namespace WcfService_ManagementCompany
         DTOUser GetUserByNumberOfAppartment(int numOfAppartment);
 
         [OperationContract]
+        DTOUser GetUserByNumberOfParkingPlace(int numOfParking);
+
+        [OperationContract]
         void TurnOnOffLight(int idLight);
 
         [OperationContract]
@@ -71,6 +74,39 @@ namespace WcfService_ManagementCompany
 
         [OperationContract]
         List<byte[]> GetAllNews();
+
+        //-------------------------------------------------------
+
+        [OperationContract]
+        void CleanPlayGround(int playGroundId);
+
+        [OperationContract]
+        bool GetPlayGroundCleaningStatus(int playGroundId);
+
+        [OperationContract]
+        List<bool> GetPlayGroundGarbagePlacesStatuses(int playGroundId);
+
+        //-------------------------------------------------------
+
+        [OperationContract]
+        void CleanRestTerritory(int restTerritoryId);
+
+        [OperationContract]
+        bool GetRestTerritoryCleaningStatus(int restTerritoryId);
+
+        [OperationContract]
+        List<bool> GetRestTerritoryGarbagePlacesStatuses(int restTerritoryId);
+
+
+
+        [OperationContract]
+        void CleanTerritory(int territoryId);
+
+        [OperationContract]
+        bool GetTerritoryCleaningStatus(int territoryId);
+
+        [OperationContract]
+        bool GetTerritoryGarbagePlaceStatus(int territoryId);
 
         #endregion
     }

@@ -45,7 +45,8 @@ namespace ServerDAL_ManagementCompany.Realizations
 
         private Territory territory = null;
         private GarbagePlace garbagePlace = null;
-        private const int numberOfGarbagePlaces = 6;
+        private const int numberOfGarbagePlaces = 2;
+        private int garbageCount = 1;
         private RestTerritory restTerritory = null;
         private ParkingPlace parkingPlace = null;
         private ParkingTerritory parkingTerritory = null;
@@ -238,7 +239,7 @@ namespace ServerDAL_ManagementCompany.Realizations
                 parkingTerritory.ParkingPlaces.Add(parkingPlace);
             }
 
-            for (int i = 0; i < numberOfGarbagePlaces; i++)
+            for (int i = 0; i < numberOfGarbagePlaces; i++, garbageCount++)
             {
                 garbagePlace = new GarbagePlace()
                 {
@@ -308,6 +309,23 @@ namespace ServerDAL_ManagementCompany.Realizations
                         EquipmentStatus = (EquipmentStatus)rand.Next(0, 2),
                         PlayGroundId = 1
                     }
+                },
+                GarbagePlaces = new List<GarbagePlace>()
+                {
+                    new GarbagePlace()
+                    {
+                        Area = 5.00,
+                        GarbageNumber = garbageCount++,
+                        StatusOfCleaning = (StatusOfCleaning)rand.Next(0, 2),
+                        PlayGroundId = 1
+                    },
+                    new GarbagePlace()
+                    {
+                        Area = 5.00,
+                        GarbageNumber = garbageCount++,
+                        StatusOfCleaning = (StatusOfCleaning)rand.Next(0, 2),
+                        PlayGroundId = 1
+                    }
                 }
             };
             ctx.PlayGrounds.Add(playGround);
@@ -339,7 +357,24 @@ namespace ServerDAL_ManagementCompany.Realizations
                         EquipmentStatus = (EquipmentStatus)rand.Next(0, 2),
                         RestTerritoryId = 1
                     }
-                }
+                },
+                GarbagePlaces = new List<GarbagePlace>()
+                {
+                    new GarbagePlace()
+                    {
+                        Area = 5.00,
+                        GarbageNumber = garbageCount++,
+                        StatusOfCleaning = (StatusOfCleaning)rand.Next(0, 2),
+                        RestTerritoryId = 1
+                    },
+                    new GarbagePlace()
+                    {
+                        Area = 5.00,
+                        GarbageNumber = garbageCount++,
+                        StatusOfCleaning = (StatusOfCleaning)rand.Next(0, 2),
+                        RestTerritoryId = 1
+                    }
+                }                
             };
             ctx.RestTerritories.Add(restTerritory);
 
@@ -364,7 +399,13 @@ namespace ServerDAL_ManagementCompany.Realizations
                 Area = 1350,
                 ParkingTerritory = parkingTerritory,
                 AdjoiningTerritory = adjoiningTerritory,
-                StatusOfCleaning = (StatusOfCleaning)rand.Next(0, 2)
+                StatusOfCleaning = (StatusOfCleaning)rand.Next(0, 2),
+                GarbagePlace = new GarbagePlace()
+                {
+                    Area = 20,
+                    GarbageNumber = garbageCount++,
+                    TerritoryId = 1
+                }
             };
             ctx.Territories.Add(territory);
 
