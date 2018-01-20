@@ -26,7 +26,8 @@ namespace ServerDAL_ManagementCompany.Interfaces
         List<bool> GetAllCleaningStatusOfEntrances();
         void CleanEntrance(int idEntrance);
 
-        void AddImageToNewsInDB(byte[] image);
+        void AddImageNewsToDB(byte[] image, int companyId);
+        List<byte[]> GetAllNews();
 
     }
 }

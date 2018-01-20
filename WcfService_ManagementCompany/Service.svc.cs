@@ -132,6 +132,21 @@ namespace WcfService_ManagementCompany
             return methodsWork.GetAllEntrancesLights();
         }
 
+        public List<bool> GetAllCleaningStatusOfEntrances()
+        {
+            return methodsWork.GetAllCleaningStatusOfEntrances();
+        }
+
+        public List<byte[]> GetAllNews()
+        {
+            return methodsWork.GetAllNews();
+        }
+
+        public void AddImageNewsToDB(byte[] image, int companyId)
+        {
+            methodsWork.AddImageNewsToDB(image, companyId);
+        }
+
         #endregion
     }
 }

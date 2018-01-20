@@ -58,5 +58,20 @@ namespace ServerBLL_ManagementCompany.Realizations
         {
             return workMethods.GetAllEntrancesLights();
         }
+
+        public List<bool> GetAllCleaningStatusOfEntrances()
+        {
+            return workMethods.GetAllCleaningStatusOfEntrances();
+        }
+
+        public List<byte[]> GetAllNews()
+        {
+            return workMethods.GetAllNews();
+        }
+
+        public void AddImageNewsToDB(byte[] image, int companyId)
+        {
+            workMethods.AddImageNewsToDB(image, companyId);
+        }
     }
 }

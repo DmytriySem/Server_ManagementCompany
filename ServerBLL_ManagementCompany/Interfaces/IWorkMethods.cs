@@ -15,7 +15,10 @@ namespace ServerBLL_ManagementCompany.Interfaces
         void TurnOnOffLight(int idLight);
         List<bool> GetAllLiftsStates();
         void TurnOnOffLift(int idLift);
+        List<bool> GetAllCleaningStatusOfEntrances();
         void CleanEntrance(int idEntrance);
         void SendMailsToAllUsers(int userStatus, string message);
+        void AddImageNewsToDB(byte[] image, int companyId);
+        List<byte[]> GetAllNews();
     }
 }

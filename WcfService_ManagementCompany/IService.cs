@@ -63,6 +63,15 @@ namespace WcfService_ManagementCompany
         [OperationContract]
         void SendMailsToAllUsers(int userStatus, string message);
 
+        [OperationContract]
+        List<bool> GetAllCleaningStatusOfEntrances();
+
+        [OperationContract]
+        void AddImageNewsToDB(byte[] image, int companyId);
+
+        [OperationContract]
+        List<byte[]> GetAllNews();
+
         #endregion
     }
 

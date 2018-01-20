@@ -28,16 +28,24 @@ namespace ServerDAL_ManagementCompany.Realizations
         /// NEWS
         /// </summary>
         /// <param name="image"></param>
-        public void AddImageToNewsInDB(byte[] image)
+        public List<byte[]> GetAllNews()
         {
-            CompanyData companyData = ctx.Companies.Where(x=>x.Id==1).Select(x=>x.CompanyData).Single();
-            CompanyNews companyNews = new CompanyNews()
-            {
-                CompanyData = companyData,
-                Date = DateTime.Now,
-                Image = image
-            };
-            ctx.CompanyNews.Add(companyNews);
+            List<byte[]> allNews = ctx.CompanyNews.Select(x => x.Image).ToList();
+
+            return allNews;
+        }
+
+        public void AddImageNewsToDB(byte[] image, int companyId)
+        {
+            ctx.CompanyNews.Add(
+                new CompanyNews()
+                {
+                    CompanyData = ctx.CompanyDatas.Where(x => x.Id == companyId).Select(x => x).Single(),
+                    Date = DateTime.Now,
+                    Image = image
+                }
+                );
+
             ctx.SaveChanges();
         }
 
@@ -181,9 +189,9 @@ namespace ServerDAL_ManagementCompany.Realizations
         public List<bool> GetAllFloorsLightsStates()
         {
             List<bool> floorsLightsStates = (from c in ctx.Lights
-                           join p in ctx.Floors
-                           on c.Hallway equals p.Hallway
-                           select(c.EquipmentStatus != EquipmentStatus.WORK)).ToList();
+                                             join p in ctx.Floors
+                                             on c.Hallway equals p.Hallway
+                                             select (c.EquipmentStatus != EquipmentStatus.WORK)).ToList();
 
             return floorsLightsStates;
         }
@@ -191,7 +199,7 @@ namespace ServerDAL_ManagementCompany.Realizations
         {
 
             var entrancesLights = ctx.Lights.Where(x => x.EntranceId != null).Select(x => x.EquipmentStatus == EquipmentStatus.WORK).ToList();
-            
+
             return entrancesLights;
         }
 
@@ -216,6 +224,7 @@ namespace ServerDAL_ManagementCompany.Realizations
 
             return allEntranceCleaningStates;
         }
+
         #endregion
     }
 }
