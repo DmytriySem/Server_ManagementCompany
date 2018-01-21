@@ -46,7 +46,10 @@ namespace WcfService_ManagementCompany
         DTOUser GetUserByNumberOfParkingPlace(int numOfParking);
 
         [OperationContract]
-        void TurnOnOffLight(int idLight);
+        void TurnOnOffHallwayLight(int idHallway);
+
+        [OperationContract]
+        void TurnOnOffEntranceLight(int idEntrance);
 
         [OperationContract]
         void TurnOnOffLift(int idLift);
@@ -107,6 +110,31 @@ namespace WcfService_ManagementCompany
 
         [OperationContract]
         bool GetTerritoryGarbagePlaceStatus(int territoryId);
+
+        //----------------------------------------------------------------
+        [OperationContract]
+        bool GetParkingTerritoryCleaningStatus(int parkingTerritoryId);
+
+        [OperationContract]
+        void CleanParkingTerritory(int parkingTerritoryId);
+
+        [OperationContract]
+        List<bool> GetParkingPlacesCleaningStatuses(int parkingTerritoryId);
+
+        [OperationContract]
+        void CleanParkingPlace(int parkingNumber);
+
+        [OperationContract]
+        List<bool> GetAllParkingTerritoryLightStates(int parkingTerritoryId);
+
+        //[OperationContract]
+        //void TurnOnOffParkingTerritoryLight(int ??????);
+
+        [OperationContract]
+        List<int> GetAllParkingPlacesStatusesOfPremises(int parkingTerritoryId);
+
+        [OperationContract]
+        void ChangeParkingPlaceStatusOfPremises(int parkingPlaceId, int statusOfPremises);
 
         #endregion
     }

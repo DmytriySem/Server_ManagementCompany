@@ -16,7 +16,8 @@ namespace ServerDAL_ManagementCompany.Interfaces
         void SendMailsToAllUsers(int userStatus, string message);
         List<bool> GetAllFloorsLightsStates();
         List<bool> GetAllEntrancesLights();
-        void TurnOnOffLight(int idLight);
+        void TurnOnOffHallwayLight(int idHallway);
+        void TurnOnOffEntranceLight(int idEntrance);
         List<bool> GetAllLiftsStates();
         void TurnOnOffLift(int idLift);
         List<bool> GetAllCleaningStatusOfEntrances();
@@ -35,5 +36,14 @@ namespace ServerDAL_ManagementCompany.Interfaces
         bool GetTerritoryCleaningStatus(int territoryId);
         bool GetTerritoryGarbagePlaceStatus(int territoryId);
 
+        //--------------------------------------------------------
+        bool GetParkingTerritoryCleaningStatus(int parkingTerritoryId);
+        void CleanParkingTerritory(int parkingTerritoryId);
+        List<bool> GetParkingPlacesCleaningStatuses(int parkingTerritoryId);
+        void CleanParkingPlace(int parkingNumber);
+        List<bool> GetAllParkingTerritoryLightStates(int parkingTerritoryId);
+        //void TurnOnOffParkingTerritoryLight(int ??????);
+        List<int> GetAllParkingPlacesStatusesOfPremises(int parkingTerritoryId);
+        void ChangeParkingPlaceStatusOfPremises(int parkingPlaceId, int statusOfPremises);
     }
 }

@@ -44,9 +44,14 @@ namespace ServerBLL_ManagementCompany.Realizations
             workMethods.TurnOnOffLift(idLift);
         }
 
-        public void TurnOnOffLight(int idLight)
+        public void TurnOnOffHallwayLight(int idHallway)
         {
-            workMethods.TurnOnOffLight(idLight);
+            workMethods.TurnOnOffHallwayLight(idHallway);
+        }
+
+        public void TurnOnOffEntranceLight(int idEntrance)
+        {
+            workMethods.TurnOnOffEntranceLight(idEntrance);
         }
 
         public void SendMailsToAllUsers(int userStatus, string message)
@@ -126,6 +131,43 @@ namespace ServerBLL_ManagementCompany.Realizations
         public UserDTO GetUserByNumberOfParkingPlace(int numOfParking)
         {
             return workMethods.GetUserByNumberOfParkingPlace(numOfParking);
+        }
+
+        //---------------------------------------------------------------------------------
+
+        public bool GetParkingTerritoryCleaningStatus(int parkingTerritoryId)
+        {
+            return workMethods.GetParkingTerritoryCleaningStatus(parkingTerritoryId);
+        }
+
+        public void CleanParkingTerritory(int parkingTerritoryId)
+        {
+            workMethods.CleanParkingTerritory(parkingTerritoryId);
+        }
+
+        public List<bool> GetParkingPlacesCleaningStatuses(int parkingTerritoryId)
+        {
+            return workMethods.GetParkingPlacesCleaningStatuses(parkingTerritoryId);
+        }
+
+        public void CleanParkingPlace(int parkingNumber)
+        {
+            workMethods.CleanParkingPlace(parkingNumber);
+        }
+
+        public List<bool> GetAllParkingTerritoryLightStates(int parkingTerritoryId)
+        {
+            return workMethods.GetAllParkingTerritoryLightStates(parkingTerritoryId);
+        }
+
+        public List<int> GetAllParkingPlacesStatusesOfPremises(int parkingTerritoryId)
+        {
+            return workMethods.GetAllParkingPlacesStatusesOfPremises(parkingTerritoryId);
+        }
+
+        public void ChangeParkingPlaceStatusOfPremises(int parkingPlaceId, int statusOfPremises)
+        {
+            workMethods.ChangeParkingPlaceStatusOfPremises(parkingPlaceId, statusOfPremises);
         }
     }
 }

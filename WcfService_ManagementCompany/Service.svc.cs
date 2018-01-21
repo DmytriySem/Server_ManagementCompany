@@ -96,52 +96,46 @@ namespace WcfService_ManagementCompany
 
             return dtoUser;
         }
-
-        public void TurnOnOffLight(int idLight)
+        public void TurnOnOffHallwayLight(int idHallway)
         {
-            methodsWork.TurnOnOffLight(idLight);
+            methodsWork.TurnOnOffHallwayLight(idHallway);
         }
-
         public void TurnOnOffLift(int idLift)
         {
             methodsWork.TurnOnOffLift(idLift);
         }
-
+        public void TurnOnOffEntranceLight(int idEntrance)
+        {
+            methodsWork.TurnOnOffEntranceLight(idEntrance);
+        }
         public List<bool> GetAllFloorsLightsStates()
         {
             return methodsWork.GetAllFloorsLightsStates();
         }
-
         public List<bool> GetAllLiftsStates()
         {
             return methodsWork.GetAllLiftsStates();
         }
-
         public void CleanEntrance(int idEntrance)
         {
             methodsWork.CleanEntrance(idEntrance);
         }
-
         public void SendMailsToAllUsers(int userStatus, string message)
         {
             methodsWork.SendMailsToAllUsers(userStatus, message);
         }
-
         public List<bool> GetAllEntrancesLights()
         {
             return methodsWork.GetAllEntrancesLights();
         }
-
         public List<bool> GetAllCleaningStatusOfEntrances()
         {
             return methodsWork.GetAllCleaningStatusOfEntrances();
         }
-
         public List<byte[]> GetAllNews()
         {
             return methodsWork.GetAllNews();
         }
-
         public void AddImageNewsToDB(byte[] image, int companyId)
         {
             methodsWork.AddImageNewsToDB(image, companyId);
@@ -153,12 +147,10 @@ namespace WcfService_ManagementCompany
         {
             methodsWork.CleanPlayGround(playGroundId);
         }
-
         public bool GetPlayGroundCleaningStatus(int playGroundId)
         {
             return methodsWork.GetPlayGroundCleaningStatus(playGroundId);
         }
-
         public List<bool> GetPlayGroundGarbagePlacesStatuses(int playGroundId)
         {
             return methodsWork.GetPlayGroundGarbagePlacesStatuses(playGroundId);
@@ -170,12 +162,10 @@ namespace WcfService_ManagementCompany
         {
             methodsWork.CleanRestTerritory(restTerritoryId);
         }
-
         public bool GetRestTerritoryCleaningStatus(int restTerritoryId)
         {
             return methodsWork.GetRestTerritoryCleaningStatus(restTerritoryId);
         }
-
         public List<bool> GetRestTerritoryGarbagePlacesStatuses(int restTerritoryId)
         {
             return methodsWork.GetRestTerritoryGarbagePlacesStatuses(restTerritoryId);
@@ -187,17 +177,14 @@ namespace WcfService_ManagementCompany
         {
             methodsWork.CleanTerritory(territoryId);
         }
-
         public bool GetTerritoryCleaningStatus(int territoryId)
         {
             return methodsWork.GetTerritoryCleaningStatus(territoryId);
         }
-
         public bool GetTerritoryGarbagePlaceStatus(int territoryId)
         {
             return methodsWork.GetTerritoryGarbagePlaceStatus(territoryId);
         }
-
         public DTOUser GetUserByNumberOfParkingPlace(int numOfParking)
         {
             UserDTO userDTO = methodsWork.GetUserByNumberOfParkingPlace(numOfParking);
@@ -211,6 +198,37 @@ namespace WcfService_ManagementCompany
             };
 
             return dtoUser;
+        }
+
+        //----------------------------------------------------------------
+
+        public bool GetParkingTerritoryCleaningStatus(int parkingTerritoryId)
+        {
+            return methodsWork.GetParkingTerritoryCleaningStatus(parkingTerritoryId);
+        }
+        public void CleanParkingTerritory(int parkingTerritoryId)
+        {
+            methodsWork.CleanParkingTerritory(parkingTerritoryId);
+        }
+        public List<bool> GetParkingPlacesCleaningStatuses(int parkingTerritoryId)
+        {
+            return methodsWork.GetParkingPlacesCleaningStatuses(parkingTerritoryId);
+        }
+        public void CleanParkingPlace(int parkingNumber)
+        {
+            methodsWork.CleanParkingPlace(parkingNumber);
+        }
+        public List<bool> GetAllParkingTerritoryLightStates(int parkingTerritoryId)
+        {
+            return methodsWork.GetAllParkingTerritoryLightStates(parkingTerritoryId);
+        }
+        public List<int> GetAllParkingPlacesStatusesOfPremises(int parkingTerritoryId)
+        {
+            return methodsWork.GetAllParkingPlacesStatusesOfPremises(parkingTerritoryId);
+        }
+        public void ChangeParkingPlaceStatusOfPremises(int parkingPlaceId, int statusOfPremises)
+        {
+            methodsWork.ChangeParkingPlaceStatusOfPremises(parkingPlaceId, statusOfPremises);
         }
 
         //---------------------------------------------------------------------------

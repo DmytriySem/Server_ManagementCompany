@@ -11,6 +11,7 @@ using ServerDAL_ManagementCompany.Entities.Equipment;
 using ServerDAL_ManagementCompany.Entities.Territory;
 using EASendMail;
 using ServerDAL_ManagementCompany.Entities.ManagementCompany;
+using ServerDAL_ManagementCompany.Entities.Room;
 
 namespace ServerDAL_ManagementCompany.Realizations
 {
@@ -166,9 +167,9 @@ namespace ServerDAL_ManagementCompany.Realizations
         /// LIGHT CONTROL
         /// </summary>
         /// <param name="idLight"></param>
-        public void TurnOnOffLight(int idLight)
+        public void TurnOnOffHallwayLight(int idHallway)
         {
-            var lightStatus = ctx.Lights.Where(x => x.Id == idLight).Single();
+            var lightStatus = ctx.Lights.Where(x => x.HallwayId == idHallway).Single();
 
             lightStatus.EquipmentStatus = lightStatus.EquipmentStatus == EquipmentStatus.NOTWORK ? EquipmentStatus.WORK : EquipmentStatus.NOTWORK;
             ctx.Entry(lightStatus).State = System.Data.Entity.EntityState.Modified;
@@ -181,6 +182,15 @@ namespace ServerDAL_ManagementCompany.Realizations
             {
                 throw new Exception("cannot submit changes" + ex.InnerException.ToString());
             }
+        }
+        public void TurnOnOffEntranceLight(int idEntrance)
+        {
+            var entranceLightStatus = ctx.Lights.Where(x => x.EntranceId == idEntrance).Single();
+
+            entranceLightStatus.EquipmentStatus = entranceLightStatus.EquipmentStatus == EquipmentStatus.NOTWORK ? EquipmentStatus.WORK : EquipmentStatus.NOTWORK;
+            ctx.Entry(entranceLightStatus).State = System.Data.Entity.EntityState.Modified;
+
+            ctx.SaveChanges();
         }
         public List<bool> GetAllFloorsLightsStates()
         {
@@ -307,6 +317,58 @@ namespace ServerDAL_ManagementCompany.Realizations
 
             return userDTO;
         }
+
+        //-------------------------------------------------------------------------------
+
+        public bool GetParkingTerritoryCleaningStatus(int parkingTerritoryId)
+        {
+            return ctx.ParkingTerritories.Select(x => x.StatusOfCleaning == StatusOfCleaning.CLEAN).Single();
+        }
+        public void CleanParkingTerritory(int parkingTerritoryId)
+        {
+            var cleanParkingTerritory = ctx.ParkingTerritories.Where(x => x.Id == parkingTerritoryId).Single();
+            cleanParkingTerritory.StatusOfCleaning =
+                cleanParkingTerritory.StatusOfCleaning == StatusOfCleaning.CLEAN ? StatusOfCleaning.DURT : StatusOfCleaning.CLEAN;
+            ctx.Entry(cleanParkingTerritory).State = System.Data.Entity.EntityState.Modified;
+
+            ctx.SaveChanges();
+        }
+        public List<bool> GetParkingPlacesCleaningStatuses(int parkingTerritoryId)
+        {
+            return ctx.ParkingPlaces.Where(x => x.ParkingTerritoryId == parkingTerritoryId)
+                .Select(x => x.StatusOfCleaning == StatusOfCleaning.CLEAN).ToList();
+        }
+        public void CleanParkingPlace(int parkingNumber)
+        {
+            var cleanParkingPlace = ctx.ParkingPlaces.Where(x => x.Id == parkingNumber).Single();
+            cleanParkingPlace.StatusOfCleaning =
+                cleanParkingPlace.StatusOfCleaning == StatusOfCleaning.CLEAN ? StatusOfCleaning.DURT : StatusOfCleaning.CLEAN;
+            ctx.Entry(cleanParkingPlace).State = System.Data.Entity.EntityState.Modified;
+
+            ctx.SaveChanges();
+        }
+        public List<bool> GetAllParkingTerritoryLightStates(int parkingTerritoryId)
+        {
+            return ctx.Lights.Where(x => x.ParkingTerritoryId == parkingTerritoryId)
+                .Select(x => x.EquipmentStatus == EquipmentStatus.WORK).ToList();
+        }
+        public List<int> GetAllParkingPlacesStatusesOfPremises(int parkingTerritoryId)
+        {
+            List<int> allParkingPlacesStatusOfPremises =
+                ctx.ParkingPlaces.Where(x => x.ParkingTerritoryId == parkingTerritoryId)
+                .Select(x => (int)x.StatusOfPremises).ToList();
+
+            return allParkingPlacesStatusOfPremises;
+        }
+        public void ChangeParkingPlaceStatusOfPremises(int parkingPlaceId, int statusOfPremises)
+        {
+            var changeParkingStatus = ctx.ParkingPlaces.Where(x => x.Id == parkingPlaceId).Single();
+            changeParkingStatus.StatusOfPremises = (StatusOfPremises)statusOfPremises;
+            ctx.Entry(changeParkingStatus).State = System.Data.Entity.EntityState.Modified;
+
+            ctx.SaveChanges();
+        }
+
 
         #endregion
 
