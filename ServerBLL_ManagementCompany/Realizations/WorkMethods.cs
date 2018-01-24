@@ -169,5 +169,15 @@ namespace ServerBLL_ManagementCompany.Realizations
         {
             workMethods.ChangeParkingPlaceStatusOfPremises(parkingPlaceId, statusOfPremises);
         }
+
+        public void SendMailToUserByNumberOfAppartment(int numberOfAppartment, string message)
+        {
+            workMethods.SendMailToUserByNumberOfAppartment(numberOfAppartment, message);
+        }
+
+        public void SendMailToUserByNumberOfParking(int numberOfParking, string message)
+        {
+            workMethods.SendMailToUserByNumberOfParking(numberOfParking, message);
+        }
     }
 }

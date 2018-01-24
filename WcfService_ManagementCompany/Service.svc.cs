@@ -231,6 +231,16 @@ namespace WcfService_ManagementCompany
             methodsWork.ChangeParkingPlaceStatusOfPremises(parkingPlaceId, statusOfPremises);
         }
 
+        public void SendMailToUserByNumberOfAppartment(int numberOfAppartment, string message)
+        {
+            methodsWork.SendMailToUserByNumberOfAppartment(numberOfAppartment, message);
+        }
+
+        public void SendMailToUserByNumberOfParking(int numberOfParking, string message)
+        {
+            methodsWork.SendMailToUserByNumberOfParking(numberOfParking, message);
+        }
+
         //---------------------------------------------------------------------------
 
 

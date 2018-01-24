@@ -12,8 +12,9 @@ namespace ServerDAL_ManagementCompany.Interfaces
     {
         UserDTO GetUserByNumberOfAppartment(int numOfAppartment);
         UserDTO GetUserByNumberOfParkingPlace(int numOfParking);
-        void SendMailToUser(int numberOfAppartment, string message);
         void SendMailsToAllUsers(int userStatus, string message);
+        void SendMailToUserByNumberOfAppartment(int numberOfAppartment, string message);
+        void SendMailToUserByNumberOfParking(int numberOfParking, string message);
         List<bool> GetAllFloorsLightsStates();
         List<bool> GetAllEntrancesLights();
         void TurnOnOffHallwayLight(int idHallway);

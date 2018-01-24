@@ -70,6 +70,12 @@ namespace WcfService_ManagementCompany
         void SendMailsToAllUsers(int userStatus, string message);
 
         [OperationContract]
+        void SendMailToUserByNumberOfAppartment(int numberOfAppartment, string message);
+
+        [OperationContract]
+        void SendMailToUserByNumberOfParking(int numberOfParking, string message);
+
+        [OperationContract]
         List<bool> GetAllCleaningStatusOfEntrances();
 
         [OperationContract]

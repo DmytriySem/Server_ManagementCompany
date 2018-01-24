@@ -21,6 +21,8 @@ namespace ServerBLL_ManagementCompany.Interfaces
         List<bool> GetAllCleaningStatusOfEntrances();
         void CleanEntrance(int idEntrance);
         void SendMailsToAllUsers(int userStatus, string message);
+        void SendMailToUserByNumberOfAppartment(int numberOfAppartment, string message);
+        void SendMailToUserByNumberOfParking(int numberOfParking, string message);
         void AddImageNewsToDB(byte[] image, int companyId);
         List<byte[]> GetAllNews();
 

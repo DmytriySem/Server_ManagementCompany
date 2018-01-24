@@ -18,6 +18,8 @@ namespace ServerDAL_ManagementCompany.Realizations
     public class MethodsOfWork : IMethodsOfWork
     {
         private CompanyContext ctx = null;
+        private string senderEmail = "dmitriysemysiuk17@gmail.com";//ctx.CompanyDatas.Select(x => x.Email).First();
+        private string senderPass = "helloworld18";
 
         public MethodsOfWork(string connStr)
         {
@@ -77,9 +79,6 @@ namespace ServerDAL_ManagementCompany.Realizations
         /// <param name="message"></param>
         public void SendMailsToAllUsers(int userStatus, string message)
         {
-            string senderEmail = "dmitriysemysiuk@gmail.com";//ctx.CompanyDatas.Select(x => x.Email).First();
-            string senderPass = "lizilla15";// "helloworld18";
-
             SmtpServer server = new SmtpServer("smtp.gmail.com", 465);
             server.ConnectType = SmtpConnectType.ConnectSSLAuto;
             server.User = senderEmail;
@@ -128,10 +127,6 @@ namespace ServerDAL_ManagementCompany.Realizations
 
                 }
             }
-        }
-        public void SendMailToUser(int numberOfAppartment, string message)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -367,6 +362,63 @@ namespace ServerDAL_ManagementCompany.Realizations
             ctx.Entry(changeParkingStatus).State = System.Data.Entity.EntityState.Modified;
 
             ctx.SaveChanges();
+        }
+
+        public void SendMailToUserByNumberOfAppartment(int numberOfAppartment, string message)
+        {
+            SmtpServer server = new SmtpServer("smtp.gmail.com", 465);
+            server.ConnectType = SmtpConnectType.ConnectSSLAuto;
+            server.User = senderEmail;
+            server.Password = senderPass;
+
+            string userEmail = (from c in ctx.Users
+                               join p in ctx.Appartments
+                               on c.Id equals p.UserId
+                               select c.Email).Single();
+
+            if (userEmail != null)
+            {
+                SmtpClient client = new SmtpClient();
+
+                SmtpMail letter = new SmtpMail("TryIt")
+                {
+                    From = senderEmail,
+                    To = userEmail,
+                    Subject = "---COMPANY---",
+                    TextBody = message
+                };
+
+                client.SendMail(server, letter);
+            }
+
+        }
+
+        public void SendMailToUserByNumberOfParking(int numberOfParking, string message)
+        {
+            SmtpServer server = new SmtpServer("smtp.gmail.com", 465);
+            server.ConnectType = SmtpConnectType.ConnectSSLAuto;
+            server.User = senderEmail;
+            server.Password = senderPass;
+
+            string userEmail = (from c in ctx.Users
+                                join p in ctx.ParkingPlaces
+                                on c.Id equals p.UserId
+                                select c.Email).Single();
+
+            if (userEmail != null)
+            {
+                SmtpClient client = new SmtpClient();
+
+                SmtpMail letter = new SmtpMail("TryIt")
+                {
+                    From = senderEmail,
+                    To = userEmail,
+                    Subject = "---COMPANY---",
+                    TextBody = message
+                };
+
+                client.SendMail(server, letter);
+            }
         }
 
 
